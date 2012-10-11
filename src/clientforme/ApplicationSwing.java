@@ -78,11 +78,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
@@ -129,21 +133,13 @@ public class ApplicationSwing extends JFrame {
 
 	private static final int CANEVAS_LARGEUR = 500;
 
-	private static final int DELAI_FORMES = 1500;
-
-	private static final int DELAI_QUITTER = 200;
-
 	private static final int MARGE_H = 50;
 
 	private static final int MARGE_V = 60;
+	
+	private static final int FORME_MASK = ActionEvent.CTRL_MASK;
 
-	private static final int ARRETER_MASK = ActionEvent.CTRL_MASK;
-
-	private static final char ARRETER_RACC = KeyEvent.VK_A;
-
-	private static final int DEMARRER_MASK = ActionEvent.CTRL_MASK;
-
-	private static final char DEMARRER_RACC = KeyEvent.VK_D;
+	private static final char FORME_RACC = KeyEvent.VK_F;
 
 	private static final int QUITTER_MASK = ActionEvent.CTRL_MASK;
 
@@ -151,10 +147,16 @@ public class ApplicationSwing extends JFrame {
 
 	private static final String
 			FICHIER_TITRE = "app.frame.menus.file.title",
+			FICHIER_FORME = "app.frame.menus.file.getshape",
 			FICHIER_QUITTER = "app.frame.menus.file.exit",
-			SERVEUR_TITRE = "app.frame.menus.server.title",
-			DESSIN_DEMARRER = "app.frame.menus.server.connection",
-			DESSIN_ARRETER = "app.frame.menus.server.disconnection",
+			ORDRE_TITRE = "app.frame.menus.order.title",
+			ORDRE_NOSEQASC = "app.frame.menus.order.nosequenceascending",
+			ORDRE_NOSEQDESC = "app.frame.menus.order.nosequencedescending",
+			ORDRE_AIREASC = "app.frame.menus.order.areaascending",
+			ORDRE_AIREDESC = "app.frame.menus.order.areadescending",
+			ORDRE_TYPE = "app.frame.menus.order.shapetype",
+			ORDRE_TYPEINV = "app.frame.menus.order.shapetypeinverse",
+			ORDRE_DISTANCE = "app.frame.menus.order.distance",
 			AIDE_TITRE = "app.frame.menus.help.title",
 			AIDE_PROPOS = "app.frame.menus.help.about";
 
@@ -169,168 +171,167 @@ public class ApplicationSwing extends JFrame {
 	private GestionForme gestionForme;
 	
 	private Communication communication;
-
-	private boolean workerActif;
 	
-	private JMenuItem arreterMenuItem, demarrerMenuItem;
+	/**
+	 * Traiter l'item "Croissant par numéro de séquence".
+	 */
+	class OrdreNoSequenceCroissant extends AbstractAction{
+		public OrdreNoSequenceCroissant(){
+			super(ApplicationSupport.getResource(ORDRE_NOSEQASC));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Décroissant par numéro de séquence".
+	 */
+	class OrdreNoSequenceDecroissant extends AbstractAction{
+		public OrdreNoSequenceDecroissant(){
+			super(ApplicationSupport.getResource(ORDRE_NOSEQDESC));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Croissant par l'aire".
+	 */
+	class OrdreAireCroissant extends AbstractAction{
+		public OrdreAireCroissant(){
+			super(ApplicationSupport.getResource(ORDRE_AIREASC));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Décroissant par l'aire".
+	 */
+	class OrdreAireDecroissant extends AbstractAction{
+		public OrdreAireDecroissant(){
+			super(ApplicationSupport.getResource(ORDRE_AIREDESC));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Par type de forme".
+	 */
+	class OrdreTypeForme extends AbstractAction{
+		public OrdreTypeForme(){
+			super(ApplicationSupport.getResource(ORDRE_TYPE));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Par type de forme inverse".
+	 */
+	class OrdreTypeFormeInverse extends AbstractAction{
+		public OrdreTypeFormeInverse(){
+			super(ApplicationSupport.getResource(ORDRE_TYPEINV));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 * Traiter l'item "Par distance".
+	 */
+	class OrdreDistance extends AbstractAction{
+		public OrdreDistance(){
+			super(ApplicationSupport.getResource(ORDRE_DISTANCE));
+		}
+		
+		public void actionPerformed(ActionEvent arg0){
+			JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	/**
+	 *  Traiter l'item "Obtenir formes".
+	 */
+	class ObtenirFormes extends AbstractAction {
+		public ObtenirFormes() {
+			super(ApplicationSupport.getResource(FICHIER_FORME));
+		}
+		
+		public void actionPerformed(ActionEvent arg0) {
+			String commandeForme = null;
+			communication = Communication.getInstance();
+			
+			try {
+				communication.initialiserConnexion(NOM_SERVER, PORT_SERVER);
+			
+				/* Initialisation du gestionnaire de formes. */
+				gestionForme = new GestionForme();
+				
+				/* On récupère les formes. */
+				for(int nbFormes = 0; nbFormes < gestionForme.getTaille(); nbFormes++){
+					try {
+						commandeForme = communication.commandeGET();
+					} 
+					catch (CommunicationException e) {
+						JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+					}
+
+					if (!commandeForme.isEmpty()){
+						AbstractForme forme = FabriqueForme.creerForme(commandeForme);
+						gestionForme.ajouterForme(forme);
+					}
+				}
+
+				/* On ferme la connexion avec le serveur de formes. */
+				try {
+					communication.commandeEND();
+				} catch (CommunicationException e) {
+					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+			} 
+			catch (CommunicationException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	/**
+	 *  Traiter l'item "Quitter".
+	 */
+	class QuitterAction extends AbstractAction {
+		public QuitterAction() {
+			super(ApplicationSupport.getResource(FICHIER_QUITTER));
+		}
+		
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+	}
 	
 	/** 
-	 * Traiter l'item "About...". 
+	 * Traiter l'item "A propos". 
 	 */
-	class AProposDeListener implements ActionListener {
+	class AProposDeAction extends AbstractAction {
+		public AProposDeAction(){
+			super(ApplicationSupport.getResource(AIDE_PROPOS));
+		}
+		
 		public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showMessageDialog(null, ApplicationSupport.getResource(DIALOGUE_A_PROPOS), ApplicationSupport.getResource(AIDE_PROPOS),JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-
-	/**
-	 *  Traiter l'item "Stop".
-	 */
-	class ArreterListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-			if (workerActif) {
-				workerActif = false;
-				try {
-					communication.commandeEND();
-				} catch (CommunicationException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			rafraichirMenus();
-		}
-	}
-	
-	/**
-	 *  Traiter l'item "Start". 
-	 */
-	class DemarrerListener implements ActionListener {
-		
-		/**
-		* demande et valide des données que l'utilisateur
-		* doit entré et affiche des message d'erreurs au besoin
-		* @param ActionEvent
-		*/
-		public void actionPerformed(ActionEvent arg0) {
-			
-			/* Variable qui définit si notre champs est valide */
-			Boolean champsValide = false; 
-			
-			/* Variable qui va contenir le nom et le port du serveur */
-			String valeurEntree = "";
-			
-			do{
-				
-				/* Création de la fenêtre qui demande les infos du serveur */
-				valeurEntree = JOptionPane.showInputDialog(null,"Quel est le nom d'hôte et le port du serveur de formes ?", "Input", JOptionPane.QUESTION_MESSAGE);
-
-				/* delimiter */
-				String delimiter = ":";
-				
-				if(valeurEntree==null){
-					break;
-				}
-				
-				/* On vérifie si notre valeur contient le délimiteur. */
-				if(!valeurEntree.contains(delimiter)){
-					JOptionPane.showMessageDialog(null, "Vous devez inscrire le délimiteur ':' entre le nom du serveur et le port.", "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-				else{
-					/* On sépare le nom du serveur et le port de notre valeur. */
-					String[] serveurInfo = valeurEntree.split(delimiter);
-					
-					String nomServeurEntree = serveurInfo[0];					//Nom du serveur
-					int portServeurEntree = Integer.parseInt(serveurInfo[1]);	//Port du serveur
-					
-					/* Si le numéro de serveur est "localhost" et le port "10000". */
-					if(nomServeurEntree.equals(NOM_SERVER) && portServeurEntree == PORT_SERVER){
-						champsValide = true;
-						
-						communication = Communication.getInstance();
-						
-						try {
-							communication.initialiserConnexion(nomServeurEntree, portServeurEntree);
-						
-							/* Initialisation du gestionnaire de formes. */
-							gestionForme = new GestionForme();
-							
-							/* On commence à dessiner les formes. */
-							final SwingWorker worker = new SwingWorker() {
-								public Object construct() {
-									dessinerFormes();
-									workerActif = false;
-									rafraichirMenus();
-									return new Integer(0);
-								}
-							};
-							worker.start();
-							workerActif = true;
-							rafraichirMenus();
-						} 
-						catch (CommunicationException e) {
-							JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-						}	
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Le nom du serveur ou le numéro de port est invalide", "Erreur", JOptionPane.ERROR_MESSAGE); 
-					}
-				}
-				
-			}
-			while(valeurEntree==null || champsValide!=true || !communication.isConnected());
-
-		}
-		
-		/**
-		 *Gère l'afichage des formes contenu dans une liste 
-		 */
-		protected void dessinerFormes() {
-			String commandeForme = null;
-			
-			/**
-			 *  Tant que le worker est actif on demande des formes au serveur et on les dessine. 
-			 */
-			while (workerActif) {
-				
-				try {
-					commandeForme = communication.commandeGET();
-				} 
-				catch (CommunicationException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-
-				if (!commandeForme.isEmpty()){
-					AbstractForme forme = FabriqueForme.creerForme(commandeForme);
-					gestionForme.ajouterForme(forme);
-				}
-
-				repaint();
-				try {
-					Thread.sleep(DELAI_FORMES);
-				}
-				catch (InterruptedException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		}
-	}
-	
-	/**
-	 *  Traiter l'item "Exit".
-	 */
-	class QuitterListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-			if (workerActif) {
-				workerActif = false;
-				try {
-					Thread.sleep(DELAI_QUITTER);
-					communication.commandeEND();
-				} catch (InterruptedException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				} catch (CommunicationException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			System.exit(0);
 		}
 	}
 
@@ -370,66 +371,84 @@ public class ApplicationSwing extends JFrame {
 		getContentPane().add(new JScrollPane(new CustomCanvas()));
 	}
 
-	/* Créer le menu "Draw". */
-	private JMenu creerMenuDessiner() {
-		JMenu menu = ApplicationSupport.addMenu(this, SERVEUR_TITRE,
-				new String[] { DESSIN_DEMARRER, DESSIN_ARRETER });
+	/* Créer le menu "Ordre". */
+	private JMenu creerMenuOrdre() {
+		JMenu menu = new JMenu(ApplicationSupport.getResource(ORDRE_TITRE));
+		
+		ButtonGroup groupeOrdre = new ButtonGroup();
+		
+		/* Création de JRadtioButtonMenuItem. */
+		JRadioButtonMenuItem ordreNoSequenceCroissant = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreNoSequenceDecroissant = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreAireCroissant = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreAireDecroissant = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreTypeForme = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreTypeFormeInverse = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreDistance = new JRadioButtonMenuItem();
+		
+		/* Ajout des actions spécifiques à chaque bouton radio. */
+		ordreNoSequenceCroissant.setAction(new OrdreNoSequenceCroissant());
+		ordreNoSequenceDecroissant.setAction(new OrdreNoSequenceDecroissant());
+		ordreAireCroissant.setAction(new OrdreAireCroissant());
+		ordreAireDecroissant.setAction(new OrdreAireDecroissant());
+		ordreTypeForme.setAction(new OrdreTypeForme());
+		ordreTypeFormeInverse.setAction(new OrdreTypeFormeInverse());
+		ordreDistance.setAction(new OrdreDistance());
 
-		demarrerMenuItem = menu.getItem(0);
-		demarrerMenuItem.addActionListener(new DemarrerListener());
-		demarrerMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				DEMARRER_RACC,
-				DEMARRER_MASK));
-
-		arreterMenuItem = menu.getItem(1);
-		arreterMenuItem.addActionListener(new ArreterListener());
-		arreterMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				ARRETER_RACC,
-				ARRETER_MASK));
+		/* Ajout des boutons radion au groupe de radio bouton. */
+		groupeOrdre.add(ordreNoSequenceCroissant);
+		groupeOrdre.add(ordreNoSequenceDecroissant);
+		groupeOrdre.add(ordreAireCroissant);
+		groupeOrdre.add(ordreAireDecroissant);
+		groupeOrdre.add(ordreTypeForme);
+		groupeOrdre.add(ordreTypeFormeInverse);
+		groupeOrdre.add(ordreDistance);
+		
+		/* Ajout des boutons radion au menu. */
+		menu.add(ordreNoSequenceCroissant);
+		menu.add(ordreNoSequenceDecroissant);
+		menu.add(ordreAireCroissant);
+		menu.add(ordreAireDecroissant);
+		menu.add(ordreTypeForme);
+		menu.add(ordreTypeFormeInverse);
+		menu.add(ordreDistance);
 
 		return menu;
 	}
 
-	/* Créer le menu "File". */
+	/* Créer le menu "Fichier". */
 	private JMenu creerMenuFichier() {
-		JMenu menu = ApplicationSupport.addMenu(this, FICHIER_TITRE,
-				new String[] { FICHIER_QUITTER });
-
-		menu.getItem(0).addActionListener(new QuitterListener());
-		menu.getItem(0).setAccelerator(
-				KeyStroke.getKeyStroke(QUITTER_RACC,
-						QUITTER_MASK));
+		JMenu menu = new JMenu(ApplicationSupport.getResource(FICHIER_TITRE));
+		
+		menu.add(new ObtenirFormes());
+		menu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(FORME_RACC, FORME_MASK));
+		
+		menu.add(new QuitterAction());
+		menu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(QUITTER_RACC, QUITTER_MASK));
 
 		return menu;
 	}
 
-	/* Créer le menu "Help". */
+	/* Créer le menu "Aide". */
 	private JMenu creerMenuAide() {
-		JMenu menu = ApplicationSupport.addMenu(this, AIDE_TITRE,
-				new String[] { AIDE_PROPOS });
+		JMenu menu = new JMenu(ApplicationSupport.getResource(AIDE_TITRE));
 
-		menu.getItem(0).addActionListener(new AProposDeListener());
+		menu.add(new AProposDeAction());
 
 		return menu;
-	}
-
-	/* Activer ou désactiver les items du menu selon la sélection. */
-	private void rafraichirMenus() {
-		demarrerMenuItem.setEnabled(!workerActif);
-		arreterMenuItem.setEnabled(workerActif);
-	}
-	
+	}	
 	
 	/* Lancer l'exécution de l'application. */
 	public static void main(String[] args) {
 		
 		/* Créer la fenêtre de l'application. */
 		ApplicationSwing cadre = new ApplicationSwing();
-
-		cadre.creerMenuFichier();
-		cadre.creerMenuDessiner();
-		cadre.creerMenuAide();
-		cadre.rafraichirMenus();
+		
+		JMenuBar barreMenu = new JMenuBar();
+		barreMenu.add(cadre.creerMenuFichier());
+		barreMenu.add(cadre.creerMenuOrdre());
+		barreMenu.add(cadre.creerMenuAide());
+		cadre.setJMenuBar(barreMenu);
 
 		/* On récupère la dimension de l'écran pour centrer. */	
 		Point centre = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
