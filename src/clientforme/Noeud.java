@@ -26,14 +26,14 @@ Historique des modifications
  */
 public class Noeud {
 
-	private Noeud Suivant;
-	private Noeud Precedant;
+	private Noeud nSuivant;
+	private Noeud nPrecedant;
 	public AbstractForme forme;
 	
 	//Constructor
 	public Noeud(AbstractForme _forme){
-		Suivant = null;
-		Precedant = null;
+		nSuivant = null;
+		nPrecedant = null;
 		forme = _forme;		
 	}
 	
@@ -43,7 +43,7 @@ public class Noeud {
 	 * @param _suivant
 	 */
 	public void definirSuivant(Noeud _suivant){
-		Suivant = _suivant;
+		nSuivant = _suivant;
 	}
 	
 	/**	 
@@ -53,7 +53,7 @@ public class Noeud {
 	 */
 	public Noeud obtenirSuivant(){
 		
-		return Suivant;
+		return nSuivant;
 	}
 	
 	/**	 
@@ -62,7 +62,7 @@ public class Noeud {
 	 * @param _suivant
 	 */
 	public void definirPrecedant(Noeud _precedant){
-		Suivant = _precedant;
+		nSuivant = _precedant;
 	}
 	
 	/**	 
@@ -72,7 +72,7 @@ public class Noeud {
 	 */
 	public Noeud obtenirPrecedant(){
 		
-		return Precedant;
+		return nPrecedant;
 	}
 	
 }
