@@ -41,6 +41,7 @@ public class ListeIterateur implements Iterateur {
 				
 				courant = courant.obtenirPrecedant();
 			}
+			position--;
 			return courant;
 			
 		}else{
@@ -61,6 +62,7 @@ public class ListeIterateur implements Iterateur {
 				
 				courant = courant.obtenirSuivant();
 			}
+			position++;
 			return courant;
 			
 		}else{

@@ -323,7 +323,7 @@ public class ApplicationSwing extends JFrame {
 
 			if (gestionForme != null){
 				ListeForme listeFormes = gestionForme.getListeForme();
-				ListetIterateur iterateur = new ListetIterateur(listeFormes);
+				ListeIterateur iterateur = new ListeIterateur(listeFormes);
 				while(iterateur.possedeSuivant()){
 					/*
 					 * TODO: Ajouter les positions selon le nombre de forme en paramètre
