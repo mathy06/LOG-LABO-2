@@ -324,6 +324,10 @@ public class ApplicationSwing extends JFrame {
 			if (gestionForme != null){
 				AbstractForme[] listeFormes = gestionForme.getListeForme();
 				for(int i=0;i<gestionForme.getTaille();++i){
+					/*
+					 * TODO: Ajouter les positions selon le nombre de forme en paramètre
+					 * 			Ex: listeFormes[i].dessiner(g2d, i*40, i*40);
+					 */
 						listeFormes[i].dessiner(g2d);
 				}
 			}
