@@ -57,6 +57,22 @@ public class Noeud {
 	}
 	
 	/**	 
+	 * Méthode servant à déterminer si le noeud possède
+	 * un noeud suivant
+	 * 
+	 * @param _suivant
+	 */
+	public boolean possedeSuivant(){
+		
+		if(nSuivant != null){
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
+	
+	/**	 
 	 * Méthode servant à définir le noeud précédant
 	 * 
 	 * @param _suivant
@@ -73,6 +89,22 @@ public class Noeud {
 	public Noeud obtenirPrecedant(){
 		
 		return nPrecedant;
+	}
+	
+	/**	 
+	 * Méthode servant à déterminer si le noeud possède
+	 * un noeud précédant
+	 * 
+	 * @param _suivant
+	 */
+	public boolean possedePrecedant(){
+		
+		if(nSuivant != null){
+			return false;
+		}else{
+			return true;
+		}
+		
 	}
 	
 }

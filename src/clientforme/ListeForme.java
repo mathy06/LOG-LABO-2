@@ -1,7 +1,5 @@
 package clientforme;
 
-import java.util.ArrayList;
-
 /******************************************************
 Cours : LOG121
 Session : A2012
@@ -22,6 +20,7 @@ Date dern. modif. : 09-10-2012
 Historique des modifications
 *******************************************************
 09-10-2012 Version 1.0 (Patrice Robitaille)
+12-10-2012 Version 1.1 (Patrice Robitaille)
 *******************************************************/
 
 /**
@@ -32,7 +31,7 @@ public class ListeForme {
 
 	private Noeud nSommet = new Noeud(null); //Premier Noeud de la liste
 	private Noeud nQueue = new Noeud(null); //Dernier noeud de la liste
-	private static final int MAX_FORME = 10; //Nombre de noeuds maximum dans la liste
+	private int maxForme; //Nombre de noeuds maximum dans la liste
 	private int tailleListe; //Taille actuelle de la liste
 
 	public Noeud getSommet() {
@@ -51,10 +50,15 @@ public class ListeForme {
 		nQueue = queue;
 	}
 	
-	//Constructor
-	public ListeForme()
+	/**	 
+	 * Constructor
+	 * 
+	 * @param nbForme Définit le nombre de forme maximum pour la liste
+	 */
+	public ListeForme(int nbForme)
 	{
 		tailleListe = 0;
+		maxForme = nbForme;
 	}
 	
 	
@@ -67,7 +71,7 @@ public class ListeForme {
 	public void ajouterNoeud(AbstractForme forme) throws Exception{
 		
 		//Si la liste n'est pas pleine
-		if(tailleListe<MAX_FORME){
+		if(tailleListe<maxForme){
 			Noeud courant = nSommet;
 			Noeud temp = new Noeud(forme);
 			
@@ -79,7 +83,7 @@ public class ListeForme {
 			courant.definirSuivant(temp);
 			tailleListe++;
 		}else{
-			throw new Exception("La liste de noeud est pleine. Maximum: "+MAX_FORME);
+			throw new Exception("La liste de noeud est pleine. Maximum: "+maxForme);
 		}
 	}
 	
@@ -90,7 +94,7 @@ public class ListeForme {
 	 * 
 	 * @param aPartirSommet
 	 */	
-	public ArrayList<Noeud> parcourirListe(boolean aPartirSommet){
+	/*public ArrayList<Noeud> parcourirListe(boolean aPartirSommet){
 
 		ArrayList<Noeud> listeForme = new ArrayList<Noeud>();
 		
@@ -125,7 +129,7 @@ public class ListeForme {
 		
 		return listeForme;
 		
-	}
+	}*/
 	
 	/**	 
 	 * Méthode servant à déterminer si 
@@ -134,7 +138,21 @@ public class ListeForme {
 	 */
 	public boolean estPleine(){
 
-		if(tailleListe<10){
+		if(tailleListe<maxForme){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	/**	 
+	 * Méthode servant à déterminer si 
+	 * la liste est vide
+	 *  
+	 */
+	public boolean estVide(){
+
+		if(tailleListe>0){
 			return false;
 		}else{
 			return true;
