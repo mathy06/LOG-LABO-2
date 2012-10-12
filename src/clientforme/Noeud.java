@@ -68,12 +68,7 @@ public class Noeud {
 	 */
 	public boolean possedeSuivant(){
 		
-		if(nSuivant != null){
-			return false;
-		}else{
-			return true;
-		}
-		
+		return (nSuivant != null);
 	}
 	
 	/**	 
@@ -102,12 +97,8 @@ public class Noeud {
 	 * @param _suivant
 	 */
 	public boolean possedePrecedant(){
-		
-		if(nSuivant != null){
-			return false;
-		}else{
-			return true;
-		}
+				
+		return (nPrecedant != null);
 		
 	}
 	

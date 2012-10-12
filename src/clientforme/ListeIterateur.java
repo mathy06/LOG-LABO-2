@@ -7,19 +7,20 @@ public class ListeIterateur implements Iterateur {
 	
 	public ListeIterateur(ListeForme liste){
 		listeforme = liste;
+		courant = listeforme.getSommet();
 	}
 	
 	@Override
 	public boolean possedePrecedant() {
 		
-		return(courant.getPrecedant() != null);
+		return courant.possedePrecedant();
 		
 	}
 
 	@Override
 	public boolean possedeSuivant() {
 
-		return(courant.getPrecedant() != null);
+		return courant.possedeSuivant();
 	
 	}
 
