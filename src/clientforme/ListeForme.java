@@ -87,6 +87,9 @@ public class ListeForme {
 		}
 	}
 	
+	public void viderListe(){
+		
+	}
 	
 	/**	 
 	 * Méthode servant à parcourir la liste de forme
@@ -171,5 +174,14 @@ public class ListeForme {
 		
 	}
 	
+	/**	 
+	 * Méthode servant à obtenir la taille maximum de
+	 * la liste
+	 *  
+	 */
+	public int obternirTailleMaximum(){
+		
+		return maxForme;
+	}
 	
 }
