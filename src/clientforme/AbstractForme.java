@@ -34,6 +34,7 @@ public abstract class AbstractForme {
 	private int pointX1;
 	private int pointY1;
 	private Color couleur;
+	private double distanceMax; 
 	
 	/**
 	 * Constructeur par défaut.
@@ -121,8 +122,34 @@ public abstract class AbstractForme {
 	}
 	
 	/**
+	 * Méthode servant à modifier la distance
+	 * maxiamle entre 2 points sur une forme
+	 * @param nDistanceMax
+	 */
+	protected void setDistanceMax(double nDistanceMax){
+		distanceMax = nDistanceMax;
+	}
+	
+	/**
+	 * retourne la propriété distanceMax
+	 * qui est la distance maximale entre
+	 * deux point de la forme
+	 * @return distanceMax
+	 */
+	public double getDistanceMax(){
+		return distanceMax;
+	}
+	
+	/**
 	 * Dessine la forme.
 	 * @param g2d - object Graphics2D sur lequel la forme se dessinera
 	 */
 	abstract void dessiner(Graphics2D g2d);
+	
+	/**
+	 * Calculer l'aire d'une forme.
+	 */
+	protected abstract void calculerAire();
+	
+	protected abstract void calculerDistanceMax();
 }

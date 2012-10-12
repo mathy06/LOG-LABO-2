@@ -54,6 +54,7 @@ public class Ligne extends AbstractForme {
 		super(noSeq, coordX1, coordY1, couleurForme);
 		pointX2 = coordX2;
 		pointY2 = coordY2;
+		calculerDistanceMax();
 	}
 	
 	/**
@@ -88,8 +89,28 @@ public class Ligne extends AbstractForme {
 		return pointY2;
 	}
 	
+	/**
+	 * Retourne l'aire d'une ligne
+	 * @return 0
+	 */
+	public int getAire(){
+		return 0;
+	}
 	public void dessiner(Graphics2D g2d){
 		g2d.setColor(super.getCouleur());
 		g2d.drawLine(super.getX1(), super.getY1(), pointX2, pointY2);
 	}
+
+	/**
+	 * Cette méthode ne fait rien,
+	 * l'aire d'une ligne est 0
+	 */
+	protected void calculerAire() {	
+	}
+
+	
+	protected void calculerDistanceMax() {
+		setDistanceMax(Math.sqrt(Math.pow( Math.abs(pointY2 - super.getY1()), 2) + Math.pow(Math.abs(pointX2 - super.getX1()),2)));
+	}
+
 }

@@ -34,6 +34,7 @@ public class Rectangle extends AbstractForme{
 	private int pointY2;
 	private int hauteur;
 	private int largeur;
+	private int aire;
 	
 	/**
 	 * Constructeur par défaut.
@@ -58,6 +59,9 @@ public class Rectangle extends AbstractForme{
 		pointY2 = coordY2;
 		largeur = Math.abs(pointX2 - super.getX1());
 		hauteur = Math.abs(pointY2 - super.getY1());
+		calculerDistanceMax();
+		calculerAire();
+		
 	}
 
 	/**
@@ -96,5 +100,29 @@ public class Rectangle extends AbstractForme{
 		g2d.setColor(super.getCouleur());
 		g2d.drawRect(super.getX1(), super.getY1(), largeur, hauteur);
 		g2d.fillRect(super.getX1(), super.getY1(), largeur, hauteur);
+	}
+
+	/**
+	 * Retourne l'aire du rectangle
+	 * @return aire
+	 */
+	public int getAire(){
+		return aire;
+	}
+	/**
+	 * Calcule l'aire d'un rectangle
+	 */
+	protected void calculerAire() {
+		aire = hauteur * largeur;
+		
+	}
+
+	/**
+	 * Calcule la distance maximale entre
+	 * deux points sur un rectangle
+	 * a²+b²=c²
+	 */
+	protected void calculerDistanceMax() {
+		setDistanceMax(Math.sqrt(Math.pow(hauteur, 2) + Math.pow(largeur,2)));
 	}
 }

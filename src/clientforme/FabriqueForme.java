@@ -65,13 +65,13 @@ public final class FabriqueForme {
 			forme = new Rectangle(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], coordonnees[3], Color.RED);
 		}
 		else if (typeForme.equals("CARRE")){
-			forme = new Rectangle(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], coordonnees[3], Color.ORANGE);
+			forme = new Carre(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], coordonnees[3], Color.ORANGE);
 		}
 		else if (typeForme.equals("OVALE")){
 			forme = new Ovale(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], coordonnees[3], Color.GREEN);
 		}
 		else{	//Cercle
-			forme = new Ovale(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], Color.YELLOW);
+			forme = new Cercle(noSequence, coordonnees[0], coordonnees[1], coordonnees[2], Color.YELLOW);
 		}
 		
 		/*

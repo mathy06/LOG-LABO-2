@@ -34,6 +34,7 @@ public class Ovale extends AbstractForme {
 	private int largeur;
 	private int rayonH;
 	private int rayonV;
+	private double aire;
 	
 	/**
 	 * Constructeur par défaut.
@@ -43,19 +44,7 @@ public class Ovale extends AbstractForme {
 		hauteur = largeur = rayonH = rayonV = 0;
 	}
 	
-	/**
-	 * Constructeur de cercle.
-	 * @param noSeq - numéro de séquence unique
-	 * @param coordX1 - coordonnée en X du centre du cercle
-	 * @param coordY1 - coordonnée en Y du centre du cercle
-	 * @param rayon - rayon du cercle
-	 * @param couleurForme - couleur
-	 */
-	public Ovale(int noSeq, int coordX1, int coordY1, int rayon, Color couleurForme){
-		super(noSeq, coordX1, coordY1, couleurForme);
-		hauteur = largeur = 2 * rayon;
-		rayonH = rayonV = rayon;
-	}
+
 	
 	/**
 	 * Contructeur d'ovale.
@@ -72,6 +61,8 @@ public class Ovale extends AbstractForme {
 		largeur = 2 * rayonHorizontal;
 		rayonH = rayonHorizontal;
 		rayonV = rayonVertical;
+		calculerAire();
+		calculerDistanceMax();
 	}
 	
 	/**
@@ -117,5 +108,26 @@ public class Ovale extends AbstractForme {
 		 */
 		g2d.drawOval(super.getX1() - rayonH, super.getY1() - rayonV, largeur, hauteur);
 		g2d.fillOval(super.getX1() - rayonH, super.getY1() - rayonV, largeur, hauteur);
+	}
+
+	protected void setAire(double nouvelleAire){
+		aire = nouvelleAire;
+		
+	}
+	public double getAire(){
+		return aire;
+	}
+	
+	/**
+	 * Calculer l'aire d'un ovale
+	 * PI*rayon1*rayon2
+	 */
+	protected void calculerAire() {
+		aire = Math.PI * rayonV * rayonH;
+		
+	}
+
+	protected void calculerDistanceMax() {
+		setDistanceMax((rayonV > rayonH) ? rayonV*2 : rayonH*2);
 	}
 }
