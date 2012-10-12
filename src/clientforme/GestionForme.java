@@ -29,17 +29,15 @@ Historique des modifications
 public class GestionForme {
 	
 	private final int MAX_FORME = 10;
-	private AbstractForme[] listeForme = new AbstractForme[MAX_FORME];
-	private int position = 0;
-	private int taille = 0;
+	private ListeForme listeForme = new ListeForme(MAX_FORME);
+	private int taille;
 	
 	/**
 	 * Accesseur de la liste de formes.
 	 * @return tableau contenant les formes
 	 */
-	public AbstractForme[] getListeForme(){
-		AbstractForme[] clone = listeForme.clone();
-		return clone;
+	public ListeForme getListeForme(){
+		return listeForme;
 	}
 	
 	/**
@@ -54,11 +52,12 @@ public class GestionForme {
 	* @param AbstractForme préconstruite
 	*/
 	public void ajouterForme(AbstractForme forme){
-		
-		listeForme[position] = forme;
-		position = ++position % MAX_FORME;
-		if(taille < 10) 
-			++taille;
+		try{
+			listeForme.ajouterNoeud(forme);
+		}catch(Exception ex){
+			ex.getMessage();
+		}
+		taille = listeForme.obtenirTaille();
 	}
 	
 }
