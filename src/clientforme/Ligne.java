@@ -93,9 +93,10 @@ public class Ligne extends AbstractForme {
 	 * Retourne l'aire d'une ligne
 	 * @return 0
 	 */
-	public int getAire(){
+	public double getAire(){
 		return 0;
 	}
+	
 	public void dessiner(Graphics2D g2d){
 		g2d.setColor(super.getCouleur());
 		g2d.drawLine(super.getX1(), super.getY1(), pointX2, pointY2);

@@ -106,9 +106,10 @@ public class Rectangle extends AbstractForme{
 	 * Retourne l'aire du rectangle
 	 * @return aire
 	 */
-	public int getAire(){
+	public double getAire(){
 		return aire;
 	}
+	
 	/**
 	 * Calcule l'aire d'un rectangle
 	 */

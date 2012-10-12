@@ -131,7 +131,7 @@ public abstract class AbstractForme {
 	}
 	
 	/**
-	 * retourne la propriété distanceMax
+	 * Retourne la propriété distanceMax
 	 * qui est la distance maximale entre
 	 * deux point de la forme
 	 * @return distanceMax
@@ -145,6 +145,12 @@ public abstract class AbstractForme {
 	 * @param g2d - object Graphics2D sur lequel la forme se dessinera
 	 */
 	abstract void dessiner(Graphics2D g2d);
+	
+	/**
+	 * Retourne l'aire de la forme.
+	 * @return aire de la forme
+	 */
+	abstract double getAire();
 	
 	/**
 	 * Calculer l'aire d'une forme.
