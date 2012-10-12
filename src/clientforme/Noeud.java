@@ -28,13 +28,17 @@ public class Noeud {
 
 	private Noeud nSuivant;
 	private Noeud nPrecedant;
-	public AbstractForme forme;
+	private AbstractForme forme;
 	
 	//Constructor
 	public Noeud(AbstractForme _forme){
 		nSuivant = null;
 		nPrecedant = null;
 		forme = _forme;		
+	}
+	
+	public AbstractForme obtenirNoeud(){
+		return forme;
 	}
 	
 	/**	 
