@@ -66,10 +66,10 @@ public class ListeForme {
 	 */
 	public void ajouterNoeud(AbstractForme forme) throws Exception{
 		
-		if(tailleListe<tailleListe){
+		//Si la liste n'est pas pleine
+		if(tailleListe<MAX_FORME){
 			Noeud courant = nSommet;
 			Noeud temp = new Noeud(forme);
-			
 			
 			while(courant.obtenirSuivant() != null){
 				courant = courant.obtenirSuivant();
@@ -125,6 +125,20 @@ public class ListeForme {
 		
 		return listeForme;
 		
+	}
+	
+	/**	 
+	 * Méthode servant à déterminer si 
+	 * la liste est pleine
+	 *  
+	 */
+	public boolean estPleine(){
+
+		if(tailleListe<10){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	
