@@ -329,7 +329,7 @@ public class ApplicationSwing extends JFrame {
 					 * TODO: Ajouter les positions selon le nombre de forme en paramètre
 					 * 			Ex: listeFormes[i].dessiner(g2d, i*40, i*40);
 					 */
-					iterateur.suivant().forme.dessiner(g2d);
+					iterateur.suivant().getNoeud().dessiner(g2d);
 				}
 			}
 		}
