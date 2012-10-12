@@ -12,14 +12,14 @@ public class ListeIterateur implements Iterateur {
 	@Override
 	public boolean possedePrecedant() {
 		
-		return(courant.obtenirPrecedant() != null);
+		return(courant.getPrecedant() != null);
 		
 	}
 
 	@Override
 	public boolean possedeSuivant() {
 
-		return(courant.obtenirPrecedant() != null);
+		return(courant.getPrecedant() != null);
 	
 	}
 
@@ -32,7 +32,7 @@ public class ListeIterateur implements Iterateur {
 		
 		if (this.possedePrecedant()){
 					
-			courant = courant.obtenirPrecedant();
+			courant = courant.getPrecedant();
 			
 			return courant;
 			
@@ -50,7 +50,7 @@ public class ListeIterateur implements Iterateur {
 		
 		if (this.possedeSuivant()){
 
-			courant = courant.obtenirSuivant();
+			courant = courant.getSuivant();
 		
 			return courant;
 			

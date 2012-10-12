@@ -75,12 +75,12 @@ public class ListeForme {
 			Noeud courant = nSommet;
 			Noeud temp = new Noeud(forme);
 			
-			while(courant.obtenirSuivant() != null){
-				courant = courant.obtenirSuivant();
+			while(courant.getSuivant() != null){
+				courant = courant.getSuivant();
 			}
 			
-			temp.definirSuivant(courant.obtenirSuivant());
-			courant.definirSuivant(temp);
+			temp.setSuivant(courant.getSuivant());
+			courant.setSuivant(temp);
 			tailleListe++;
 		}else{
 			throw new Exception("La liste de noeud est pleine. Maximum: "+maxForme);

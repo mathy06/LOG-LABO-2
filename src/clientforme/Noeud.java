@@ -37,7 +37,7 @@ public class Noeud {
 		forme = _forme;		
 	}
 	
-	public AbstractForme obtenirNoeud(){
+	public AbstractForme getNoeud(){
 		return forme;
 	}
 	
@@ -46,7 +46,7 @@ public class Noeud {
 	 * 
 	 * @param _suivant
 	 */
-	public void definirSuivant(Noeud _suivant){
+	public void setSuivant(Noeud _suivant){
 		nSuivant = _suivant;
 	}
 	
@@ -55,7 +55,7 @@ public class Noeud {
 	 * 
 	 * @param _suivant
 	 */
-	public Noeud obtenirSuivant(){
+	public Noeud getSuivant(){
 		
 		return nSuivant;
 	}
@@ -81,7 +81,7 @@ public class Noeud {
 	 * 
 	 * @param _suivant
 	 */
-	public void definirPrecedant(Noeud _precedant){
+	public void setPrecedant(Noeud _precedant){
 		nSuivant = _precedant;
 	}
 	
@@ -90,7 +90,7 @@ public class Noeud {
 	 * 
 	 * @param _suivant
 	 */
-	public Noeud obtenirPrecedant(){
+	public Noeud getPrecedant(){
 		
 		return nPrecedant;
 	}
