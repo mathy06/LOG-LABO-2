@@ -97,17 +97,11 @@ public class Ovale extends AbstractForme {
 		return rayonV;
 	}
 	
-	public void dessiner(Graphics2D g2d){
+	public void dessiner(Graphics2D g2d, int coordX, int coordY){
 		g2d.setColor(super.getCouleur());
-		
-		/*
-		 * Comme les coordonnées en X,Y représentent le milieu de l'ovale ou du cercle,
-		 * nous devons soustraire le rayon horizontal et vertical afin d'obtenir les
-		 * coordonnées du point supérieur gauche qui est requis par les méthodes
-		 * drawOval() et fillOval().
-		 */
-		g2d.drawOval(super.getX1() - rayonH, super.getY1() - rayonV, largeur, hauteur);
-		g2d.fillOval(super.getX1() - rayonH, super.getY1() - rayonV, largeur, hauteur);
+		g2d.fillOval(coordX, coordY, largeur, hauteur);
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(coordX, coordY, largeur, hauteur);
 	}
 
 	protected void setAire(double nouvelleAire){

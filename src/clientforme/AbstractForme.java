@@ -144,7 +144,7 @@ public abstract class AbstractForme {
 	 * Dessine la forme.
 	 * @param g2d - object Graphics2D sur lequel la forme se dessinera
 	 */
-	abstract void dessiner(Graphics2D g2d);
+	abstract void dessiner(Graphics2D g2d, int coordX, int coordY);
 	
 	/**
 	 * Retourne l'aire de la forme.
@@ -157,5 +157,8 @@ public abstract class AbstractForme {
 	 */
 	protected abstract void calculerAire();
 	
+	/**
+	 * Calculer la distance maximal entre 2 points d'une forme.
+	 */
 	protected abstract void calculerDistanceMax();
 }

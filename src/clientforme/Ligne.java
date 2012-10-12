@@ -97,9 +97,11 @@ public class Ligne extends AbstractForme {
 		return 0;
 	}
 	
-	public void dessiner(Graphics2D g2d){
+	public void dessiner(Graphics2D g2d, int coordX, int coordY){
 		g2d.setColor(super.getCouleur());
-		g2d.drawLine(super.getX1(), super.getY1(), pointX2, pointY2);
+		g2d.drawLine(coordX, coordY, coordX+pointX2-super.getX1(), coordY+pointY2-super.getY1());
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(coordX, coordY, Math.abs(pointX2-super.getX1()), Math.abs(pointY2-super.getY1()));
 	}
 
 	/**

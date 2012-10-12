@@ -96,10 +96,11 @@ public class Rectangle extends AbstractForme{
 		return pointY2;
 	}
 
-	public void dessiner(Graphics2D g2d){
+	public void dessiner(Graphics2D g2d, int coordX, int coordY){
 		g2d.setColor(super.getCouleur());
-		g2d.drawRect(super.getX1(), super.getY1(), largeur, hauteur);
-		g2d.fillRect(super.getX1(), super.getY1(), largeur, hauteur);
+		g2d.fillRect(coordX, coordY, largeur, hauteur);
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(coordX, coordY, largeur, hauteur);
 	}
 
 	/**
