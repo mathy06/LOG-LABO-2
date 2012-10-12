@@ -1,4 +1,5 @@
 package clientforme;
+import java.util.Comparator;
 
 /******************************************************
 Cours : LOG121
@@ -182,6 +183,28 @@ public class ListeForme {
 	public int obternirTailleMaximum(){
 		
 		return maxForme;
+	}
+	
+	/**
+	 * Méthode servant à trier les Noeuds de la liste de forme.
+	 * @param comparateur
+	 */
+	public void tri(Comparator<AbstractForme> comp){
+		
+		Noeud courant = nSommet;
+		Noeud temp;
+		ListeIterateur iterateur = new ListeIterateur(this); 
+		while(iterateur.possedeSuivant()){
+			temp = iterateur.suivant();
+			if(comp.compare(courant.forme,temp.forme) > 0){
+				temp.definirPrecedant(courant.obtenirPrecedant());
+				courant.definirPrecedant(temp);
+				courant.definirSuivant(temp.obtenirSuivant());
+				temp.definirSuivant(courant);
+				courant = temp;
+			}
+		}
+		
 	}
 	
 }

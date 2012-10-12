@@ -200,17 +200,21 @@ public class ApplicationSwing extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent arg0){
+			if(!(gestionForme == null)){
 			switch(ordre){
 				case NOSQEASC:
+					
 					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case NOSEQDESC:
 					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case AIREASC:
+					gestionForme.tri(new CompareAire(true));
 					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case AIREDESC:
+					gestionForme.tri(new CompareAire(false));
 					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 					break;
 				case TYPEFORME:
@@ -225,6 +229,7 @@ public class ApplicationSwing extends JFrame {
 				default:
 					JOptionPane.showMessageDialog(null, "DEFAULT", "TEST",JOptionPane.INFORMATION_MESSAGE);
 					break;
+			}
 			}
 		}
 	}

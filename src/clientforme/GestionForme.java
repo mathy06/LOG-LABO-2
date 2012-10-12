@@ -1,4 +1,6 @@
 package clientforme;
+
+import java.util.Comparator;
 /******************************************************
 Cours : LOG121
 Session : A2012
@@ -60,4 +62,8 @@ public class GestionForme {
 		taille = listeForme.obtenirTaille();
 	}
 	
+	
+	public void tri(Comparator<AbstractForme> comp){
+		listeForme.tri(comp);
+	}
 }
