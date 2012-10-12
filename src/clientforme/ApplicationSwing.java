@@ -3,7 +3,7 @@ package clientforme;
  Cours :             LOG-121
  Session :           Automne 2012
  Groupe :            4
- Projet :            Laboratoire #1
+ Projet :            Laboratoire #2
 Étudiant(e)(s) : 	Philippe Charbonneau
 				 	Patrice Robitaille
 				 	Mathieu Battah
@@ -12,7 +12,7 @@ package clientforme;
                      
  Professeur :        Groucho Marx
  Date créée :        2002-05-28
- Date dern. modif. : 2012-09-21
+ Date dern. modif. : 2012-10-11
  
 *******************************************************
  Historique des modifications
@@ -61,6 +61,10 @@ package clientforme;
   2012-09-28	Mathieu Battah
   
   				Ajout de l'utilisation de GestionForme pour gérer la liste de formes.
+  				
+  2012-10-11	Mathieu Battah
+  
+  				Modification des menus pour le lab 2.
               
 
  La distribution originale se trouve à 
@@ -75,7 +79,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -83,7 +86,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
@@ -154,8 +156,8 @@ public class ApplicationSwing extends JFrame {
 			ORDRE_NOSEQDESC = "app.frame.menus.order.nosequencedescending",
 			ORDRE_AIREASC = "app.frame.menus.order.areaascending",
 			ORDRE_AIREDESC = "app.frame.menus.order.areadescending",
-			ORDRE_TYPE = "app.frame.menus.order.shapetype",
-			ORDRE_TYPEINV = "app.frame.menus.order.shapetypeinverse",
+			ORDRE_TYPEFORME = "app.frame.menus.order.shapetype",
+			ORDRE_TYPEFORMEINV = "app.frame.menus.order.shapetypeinverse",
 			ORDRE_DISTANCE = "app.frame.menus.order.distance",
 			AIDE_TITRE = "app.frame.menus.help.title",
 			AIDE_PROPOS = "app.frame.menus.help.about";
@@ -172,102 +174,54 @@ public class ApplicationSwing extends JFrame {
 	
 	private Communication communication;
 	
-	/**
-	 * Traiter l'item "Croissant par numéro de séquence".
-	 */
-	class OrdreNoSequenceCroissant extends AbstractAction{
-		public OrdreNoSequenceCroissant(){
-			super(ApplicationSupport.getResource(ORDRE_NOSEQASC));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
+	private enum Ordre {NOSQEASC, NOSEQDESC, AIREASC, AIREDESC, TYPEFORME, TYPEFORMEINV, DISTANCE};
 	
 	/**
-	 * Traiter l'item "Décroissant par numéro de séquence".
+	 * Traiter les items du menu "Ordre".
 	 */
-	class OrdreNoSequenceDecroissant extends AbstractAction{
-		public OrdreNoSequenceDecroissant(){
-			super(ApplicationSupport.getResource(ORDRE_NOSEQDESC));
+	class OrdreAction extends AbstractAction{
+		private Ordre ordre;
+		
+		public OrdreAction(String menuItemTitle, Ordre o){
+			super(menuItemTitle);
+			ordre = o;
 		}
 		
 		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Traiter l'item "Croissant par l'aire".
-	 */
-	class OrdreAireCroissant extends AbstractAction{
-		public OrdreAireCroissant(){
-			super(ApplicationSupport.getResource(ORDRE_AIREASC));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Traiter l'item "Décroissant par l'aire".
-	 */
-	class OrdreAireDecroissant extends AbstractAction{
-		public OrdreAireDecroissant(){
-			super(ApplicationSupport.getResource(ORDRE_AIREDESC));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Traiter l'item "Par type de forme".
-	 */
-	class OrdreTypeForme extends AbstractAction{
-		public OrdreTypeForme(){
-			super(ApplicationSupport.getResource(ORDRE_TYPE));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Traiter l'item "Par type de forme inverse".
-	 */
-	class OrdreTypeFormeInverse extends AbstractAction{
-		public OrdreTypeFormeInverse(){
-			super(ApplicationSupport.getResource(ORDRE_TYPEINV));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
-	
-	/**
-	 * Traiter l'item "Par distance".
-	 */
-	class OrdreDistance extends AbstractAction{
-		public OrdreDistance(){
-			super(ApplicationSupport.getResource(ORDRE_DISTANCE));
-		}
-		
-		public void actionPerformed(ActionEvent arg0){
-			JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+			switch(ordre){
+				case NOSQEASC:
+					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case NOSEQDESC:
+					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case AIREASC:
+					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case AIREDESC:
+					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case TYPEFORME:
+					JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case TYPEFORMEINV:
+					JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case DISTANCE:
+					JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "DEFAULT", "TEST",JOptionPane.INFORMATION_MESSAGE);
+					break;
+			}
 		}
 	}
 	
 	/**
 	 *  Traiter l'item "Obtenir formes".
 	 */
-	class ObtenirFormes extends AbstractAction {
-		public ObtenirFormes() {
+	class ObtenirFormesAction extends AbstractAction {
+		public ObtenirFormesAction() {
 			super(ApplicationSupport.getResource(FICHIER_FORME));
 		}
 		
@@ -283,13 +237,8 @@ public class ApplicationSwing extends JFrame {
 				
 				/* On récupère les formes. */
 				for(int nbFormes = 0; nbFormes < gestionForme.getTaille(); nbFormes++){
-					try {
-						commandeForme = communication.commandeGET();
-					} 
-					catch (CommunicationException e) {
-						JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-					}
-
+					commandeForme = communication.commandeGET();
+					
 					if (!commandeForme.isEmpty()){
 						AbstractForme forme = FabriqueForme.creerForme(commandeForme);
 						gestionForme.ajouterForme(forme);
@@ -297,11 +246,7 @@ public class ApplicationSwing extends JFrame {
 				}
 
 				/* On ferme la connexion avec le serveur de formes. */
-				try {
-					communication.commandeEND();
-				} catch (CommunicationException e) {
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
+				communication.commandeEND();
 			} 
 			catch (CommunicationException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -387,15 +332,15 @@ public class ApplicationSwing extends JFrame {
 		JRadioButtonMenuItem ordreDistance = new JRadioButtonMenuItem();
 		
 		/* Ajout des actions spécifiques à chaque bouton radio. */
-		ordreNoSequenceCroissant.setAction(new OrdreNoSequenceCroissant());
-		ordreNoSequenceDecroissant.setAction(new OrdreNoSequenceDecroissant());
-		ordreAireCroissant.setAction(new OrdreAireCroissant());
-		ordreAireDecroissant.setAction(new OrdreAireDecroissant());
-		ordreTypeForme.setAction(new OrdreTypeForme());
-		ordreTypeFormeInverse.setAction(new OrdreTypeFormeInverse());
-		ordreDistance.setAction(new OrdreDistance());
+		ordreNoSequenceCroissant.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQASC), Ordre.NOSQEASC));
+		ordreNoSequenceDecroissant.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQDESC), Ordre.NOSEQDESC));
+		ordreAireCroissant.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREASC), Ordre.AIREASC));
+		ordreAireDecroissant.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREDESC), Ordre.AIREDESC));
+		ordreTypeForme.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_TYPEFORME), Ordre.TYPEFORME));
+		ordreTypeFormeInverse.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_TYPEFORMEINV), Ordre.TYPEFORMEINV));
+		ordreDistance.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_DISTANCE), Ordre.DISTANCE));
 
-		/* Ajout des boutons radion au groupe de radio bouton. */
+		/* Ajout des boutons radio au groupe de radio bouton. */
 		groupeOrdre.add(ordreNoSequenceCroissant);
 		groupeOrdre.add(ordreNoSequenceDecroissant);
 		groupeOrdre.add(ordreAireCroissant);
@@ -404,7 +349,7 @@ public class ApplicationSwing extends JFrame {
 		groupeOrdre.add(ordreTypeFormeInverse);
 		groupeOrdre.add(ordreDistance);
 		
-		/* Ajout des boutons radion au menu. */
+		/* Ajout des boutons radio au menu. */
 		menu.add(ordreNoSequenceCroissant);
 		menu.add(ordreNoSequenceDecroissant);
 		menu.add(ordreAireCroissant);
@@ -420,7 +365,7 @@ public class ApplicationSwing extends JFrame {
 	private JMenu creerMenuFichier() {
 		JMenu menu = new JMenu(ApplicationSupport.getResource(FICHIER_TITRE));
 		
-		menu.add(new ObtenirFormes());
+		menu.add(new ObtenirFormesAction());
 		menu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(FORME_RACC, FORME_MASK));
 		
 		menu.add(new QuitterAction());
