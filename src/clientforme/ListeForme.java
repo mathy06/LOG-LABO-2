@@ -34,6 +34,7 @@ public class ListeForme {
 	private Noeud nQueue = new Noeud(null); //Dernier noeud de la liste
 	private int maxForme; //Nombre de noeuds maximum dans la liste
 	private int tailleListe; //Taille actuelle de la liste
+	private Noeud courant; //Définition du noeud actuel
 
 	public Noeud getSommet() {
 		return nSommet;
@@ -60,6 +61,7 @@ public class ListeForme {
 	{
 		tailleListe = 0;
 		maxForme = nbForme;
+		courant = nSommet;
 	}
 	
 	
@@ -73,67 +75,26 @@ public class ListeForme {
 		
 		//Si la liste n'est pas pleine
 		if(tailleListe<maxForme){
-			Noeud courant = nSommet;
-			Noeud temp = new Noeud(forme);
-			
-			while(courant.getSuivant() != null){
+			if(estVide()){
+				nSommet = courant = new Noeud(forme);
+			}else{							
+				courant.setSuivant(new Noeud(forme));
 				courant = courant.getSuivant();
+				tailleListe++;
 			}
-			
-			temp.setSuivant(courant.getSuivant());
-			courant.setSuivant(temp);
-			tailleListe++;
 		}else{
 			throw new Exception("La liste de noeud est pleine. Maximum: "+maxForme);
 		}
 	}
 	
+	/**	 
+	 * Méthode servant à vider la liste
+	 *  
+	 */
 	public void viderListe(){
 		
 	}
 	
-	/**	 
-	 * Méthode servant à parcourir la liste de forme
-	 * à partir du sommet ou de la fin.
-	 * 
-	 * @param aPartirSommet
-	 */	
-	/*public ArrayList<Noeud> parcourirListe(boolean aPartirSommet){
-
-		ArrayList<Noeud> listeForme = new ArrayList<Noeud>();
-		
-		if(aPartirSommet==true){
-			
-			Noeud courant = nSommet;
-			
-			for(int i = 1; i < tailleListe; i++)
-			{
-				if(courant!=null){
-					listeForme.add(courant);
-					courant = courant.obtenirSuivant();
-				}else{
-					break;
-				}
-				
-			}
-		}else{
-			Noeud courant = nQueue;
-			
-			for(int i = tailleListe; i > 0; i--)
-			{
-				if(courant!=null){
-					listeForme.add(courant);
-					courant = courant.obtenirPrecedant();
-				}else{
-					break;
-				}
-				
-			}
-		}
-		
-		return listeForme;
-		
-	}*/
 	
 	/**	 
 	 * Méthode servant à déterminer si 
