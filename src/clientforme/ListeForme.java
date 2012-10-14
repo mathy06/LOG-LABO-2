@@ -80,8 +80,8 @@ public class ListeForme {
 			}else{							
 				courant.setSuivant(new Noeud(forme));
 				courant = courant.getSuivant();
-				tailleListe++;
 			}
+			tailleListe++;
 		}else{
 			throw new Exception("La liste de noeud est pleine. Maximum: "+maxForme);
 		}

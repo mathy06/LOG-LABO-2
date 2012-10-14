@@ -201,36 +201,41 @@ public class ApplicationSwing extends JFrame {
 		
 		public void actionPerformed(ActionEvent arg0){
 			if(!(gestionForme == null)){
-			switch(ordre){
-				case NOSQEASC:
-					
-					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case NOSEQDESC:
-					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case AIREASC:
-					gestionForme.tri(new CompareAire(true));
-					JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case AIREDESC:
-					gestionForme.tri(new CompareAire(false));
-					JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case TYPEFORME:
-					JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case TYPEFORMEINV:
-					JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case DISTANCE:
-					JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
-				default:
-					JOptionPane.showMessageDialog(null, "DEFAULT", "TEST",JOptionPane.INFORMATION_MESSAGE);
-					break;
+				
+
+				System.out.println("taille de gestionForme:"+gestionForme.getTaille());
+				
+				switch(ordre){
+					case NOSQEASC:
+						
+						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case NOSEQDESC:
+						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case AIREASC:
+						gestionForme.tri(new CompareAire(true));
+						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case AIREDESC:
+						gestionForme.tri(new CompareAire(false));
+						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case TYPEFORME:
+						JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case TYPEFORMEINV:
+						JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					case DISTANCE:
+						JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+					default:
+						JOptionPane.showMessageDialog(null, "DEFAULT", "TEST",JOptionPane.INFORMATION_MESSAGE);
+						break;
+				}
 			}
-			}
+			repaint();
 		}
 	}
 	
@@ -256,17 +261,19 @@ public class ApplicationSwing extends JFrame {
 				gestionForme = new GestionForme();
 				
 				/* On récupère les formes. */
-				for(int nbFormes = 0; nbFormes < gestionForme.getTaille(); nbFormes++){
+				for(int nbFormes = 0; nbFormes < gestionForme.getMaxTaille(); nbFormes++){
 					commandeForme = communication.commandeGET();
 					
 					if (!commandeForme.isEmpty()){
 						AbstractForme forme = FabriqueForme.creerForme(commandeForme);
 						gestionForme.ajouterForme(forme);
+						
 					}
 				}
 
 				/* On ferme la connexion avec le serveur de formes. */
 				communication.commandeEND();
+				
 			} 
 			catch (CommunicationException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -338,6 +345,8 @@ public class ApplicationSwing extends JFrame {
 					iterateur.suivant().getNoeud().dessiner(g2d, compteur * 40, compteur * 40);
 					++compteur;
 				}
+
+				repaint();
 			}
 		}
 	}

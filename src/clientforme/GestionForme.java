@@ -50,6 +50,13 @@ public class GestionForme {
 	}
 		
 	/**
+	 * @return nombre de place prise dans la liste
+	 */
+	public int getMaxTaille(){
+		return MAX_FORME;
+	}
+	
+	/**
 	* Ajoute une forme à la liste.
 	* @param AbstractForme préconstruite
 	*/
