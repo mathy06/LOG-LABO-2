@@ -157,11 +157,11 @@ public class ListeForme {
 		ListeIterateur iterateur = new ListeIterateur(this); 
 		while(iterateur.possedeSuivant()){
 			temp = iterateur.suivant();
-			if(comp.compare(courant.forme,temp.forme) > 0){
-				temp.definirPrecedant(courant.obtenirPrecedant());
-				courant.definirPrecedant(temp);
-				courant.definirSuivant(temp.obtenirSuivant());
-				temp.definirSuivant(courant);
+			if(comp.compare(courant.getNoeud(),temp.getNoeud()) > 0){
+				temp.setPrecedant(courant.getPrecedant());
+				courant.setPrecedant(temp);
+				courant.setSuivant(temp.getSuivant());
+				temp.setSuivant(courant);
 				courant = temp;
 			}
 		}
