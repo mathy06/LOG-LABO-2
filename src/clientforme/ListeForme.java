@@ -158,11 +158,27 @@ public class ListeForme {
 		while(iterateur.possedeSuivant()){
 			temp = iterateur.suivant();
 			if(comp.compare(courant.getNoeud(),temp.getNoeud()) > 0){
+						
+				/*
+				 * TODO: Trouver comment bien définir l'élément courant sans
+				 * 		 créer de problème.
+				 */
+				
+				/*
+				 * Avec ce code, le sommet semble perdre le noeud suivant et
+				 * il devient impossible de parcourir la liste pour l'afficher
+				 */
+				
+				/*
 				temp.setPrecedant(courant.getPrecedant());
-				courant.setPrecedant(temp);
-				courant.setSuivant(temp.getSuivant());
 				temp.setSuivant(courant);
-				courant = temp;
+				courant.setPrecedant(temp);
+				courant.setSuivant(temp.getSuivant());*/
+				
+				courant = temp;		
+				
+			}else{
+				//courant = temp;
 			}
 		}
 		

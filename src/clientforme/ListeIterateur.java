@@ -31,7 +31,7 @@ public class ListeIterateur implements Iterateur {
 			courant = listeforme.getQueue();
 		}
 		
-		if (this.possedePrecedant()){
+		if (courant.possedePrecedant()){
 					
 			courant = courant.getPrecedant();
 			
@@ -49,7 +49,7 @@ public class ListeIterateur implements Iterateur {
 			courant = listeforme.getSommet();
 		}
 		
-		if (this.possedeSuivant()){
+		if (courant.possedeSuivant()){
 
 			courant = courant.getSuivant();
 		

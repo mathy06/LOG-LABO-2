@@ -22,6 +22,8 @@ public class CompareAire implements Comparator<AbstractForme> {
 	
 	public int compare(AbstractForme forme1, AbstractForme forme2){
 		
+		System.out.println("Aire forme1:"+forme1.getAire()+" Aire forme2:"+forme2.getAire());
+		
 		if (forme1.getAire() > forme2.getAire()){
 			return 1 * ordre;
 		}
