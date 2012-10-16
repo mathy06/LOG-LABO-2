@@ -52,8 +52,11 @@ public class Ligne extends AbstractForme {
 	 */
 	public Ligne(int noSeq, int coordX1, int coordY1, int coordX2, int coordY2, Color couleurForme){
 		super(noSeq, coordX1, coordY1, couleurForme);
-		pointX2 = coordX2;
-		pointY2 = coordY2;
+		
+		/* On veut que les lignes soient toujours de en haut à gauche vers en bas à droite. */
+		pointX2 = (coordX2 < coordX1 ? coordX1 + coordX2 : coordX2);
+		pointY2 = (coordY2 < coordY1 ? coordY1 + coordY2 : coordY2);
+		
 		calculerDistanceMax();
 	}
 	
