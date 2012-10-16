@@ -173,10 +173,6 @@ public class ApplicationSwing extends JFrame {
 			AIDE_PROPOS = "app.frame.menus.help.about";
 
 	private static final String DIALOGUE_A_PROPOS = "app.frame.dialog.about";
-	
-	private static final String NOM_SERVER = "localhost";
-	
-	private static final int PORT_SERVER = 10000;
 
 	private static final long serialVersionUID = 1L;
 		
@@ -250,34 +246,74 @@ public class ApplicationSwing extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent arg0) {
-			String commandeForme = null;
-			communication = Communication.getInstance();
 			
-			try {
-				/* Initialisation de la connexion. */
-				communication.initialiserConnexion(NOM_SERVER, PORT_SERVER);
+			Boolean champsValide = false; 	/* Variable qui définit si notre champs est valide */
+			String valeurEntree = "";		/* Variable qui va contenir le nom et le port du serveur */
+			String commandeForme = null;	/* Variable qui contient la commande reçu du serveur de forme */
 			
-				/* Initialisation du gestionnaire de formes. */
-				gestionForme = new GestionForme();
+			do {
 				
-				/* On récupère les formes. */
-				for(int nbFormes = 0; nbFormes < gestionForme.getMaxTaille(); nbFormes++){
-					commandeForme = communication.commandeGET();
+				/* Création de la fenêtre qui demande les infos du serveur */
+				valeurEntree = JOptionPane.showInputDialog(null,
+														   "Quel est le nom d'hôte et le port du serveur de formes ?", 
+														   "Input", 
+														   JOptionPane.QUESTION_MESSAGE);
+
+				/* delimiter */
+				String delimiter = ":";
+				
+				if (valeurEntree==null){
+					break;
+				}
+				
+				/* On vérifie si notre valeur contient le délimiteur. */
+				if (!valeurEntree.contains(delimiter)){
+					JOptionPane.showMessageDialog(null, 
+												  "Vous devez inscrire le délimiteur ':' entre le nom du serveur et le port.", 
+												  "Erreur", 
+												  JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					/* On sépare le nom du serveur et le port de notre valeur. */
+					String[] serveurInfo = valeurEntree.split(delimiter);
 					
-					if (!commandeForme.isEmpty()){
-						AbstractForme forme = FabriqueForme.creerForme(commandeForme);
-						gestionForme.ajouterForme(forme);
+					String nomServeurEntree = serveurInfo[0];					//Nom du serveur
+					int portServeurEntree = Integer.parseInt(serveurInfo[1]);	//Port du serveur
 						
+					communication = Communication.getInstance();
+					
+					try {
+						/* Initialisation de la connexion. */
+						communication.initialiserConnexion(nomServeurEntree, portServeurEntree);
+						champsValide = true;
+					
+						/* Initialisation du gestionnaire de formes. */
+						gestionForme = new GestionForme();
+						
+						/* On récupère les formes. */
+						for(int nbFormes = 0; nbFormes < gestionForme.getMaxTaille(); nbFormes++){
+							commandeForme = communication.commandeGET();
+							
+							if (!commandeForme.isEmpty()){
+								AbstractForme forme = FabriqueForme.creerForme(commandeForme);
+								gestionForme.ajouterForme(forme);
+								
+							}
+						}
+
+						/* On ferme la connexion avec le serveur de formes. */
+						communication.commandeEND();
+					} 
+					catch (CommunicationException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-
-				/* On ferme la connexion avec le serveur de formes. */
-				communication.commandeEND();
 				
-			} 
-			catch (CommunicationException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
+			while(valeurEntree==null || champsValide!=true);
 		}
 	}
 	
