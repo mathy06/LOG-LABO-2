@@ -77,9 +77,12 @@ public class ListeForme {
 		if(tailleListe<maxForme){
 			if(estVide()){
 				nSommet = courant = new Noeud(forme);
-			}else{							
-				courant.setSuivant(new Noeud(forme));
-				courant = courant.getSuivant();
+			}else{	
+				Noeud temporaire = new Noeud(forme);
+				courant.setSuivant(temporaire);
+				temporaire.setPrecedant(courant);
+				
+				courant = temporaire;
 			}
 			tailleListe++;
 		}else{
@@ -169,11 +172,12 @@ public class ListeForme {
 				 * il devient impossible de parcourir la liste pour l'afficher
 				 */
 				
-				/*
+				
 				temp.setPrecedant(courant.getPrecedant());
+				courant.setSuivant(temp.getSuivant());
 				temp.setSuivant(courant);
 				courant.setPrecedant(temp);
-				courant.setSuivant(temp.getSuivant());*/
+				
 				
 				courant = temp;		
 				

@@ -77,7 +77,7 @@ public class Noeud {
 	 * @param _suivant
 	 */
 	public void setPrecedant(Noeud _precedant){
-		nSuivant = _precedant;
+		nPrecedant = _precedant;
 	}
 	
 	/**	 
