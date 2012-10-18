@@ -184,7 +184,9 @@ public class ApplicationSwing extends JFrame {
 	
 	private Communication communication;
 	
-	private enum Ordre {NOSQEASC, NOSEQDESC, AIREASC, AIREDESC, TYPEFORME, TYPEFORMEINV, DISTANCE};
+	private ButtonGroup groupeOrdre;
+	
+	private enum Ordre {NOSEQASC, NOSEQDESC, AIREASC, AIREDESC, TYPEFORME, TYPEFORMEINV, DISTANCE};
 	
 	/**
 	 * Traiter les items du menu "Ordre".
@@ -206,7 +208,7 @@ public class ApplicationSwing extends JFrame {
 				System.out.println("taille de gestionForme:"+gestionForme.getTaille());
 				
 				switch(ordre){
-					case NOSQEASC:
+					case NOSEQASC:
 						
 						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
@@ -235,7 +237,9 @@ public class ApplicationSwing extends JFrame {
 						break;
 				}
 			}
+			
 			repaint();
+			validate();
 		}
 	}
 	
@@ -252,6 +256,8 @@ public class ApplicationSwing extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			String commandeForme = null;
 			communication = Communication.getInstance();
+			
+			groupeOrdre.clearSelection();
 			
 			try {
 				/* Initialisation de la connexion. */
@@ -274,6 +280,8 @@ public class ApplicationSwing extends JFrame {
 				/* On ferme la connexion avec le serveur de formes. */
 				communication.commandeEND();
 				
+				repaint();
+				validate();
 			} 
 			catch (CommunicationException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -345,8 +353,6 @@ public class ApplicationSwing extends JFrame {
 					iterateur.suivant().getNoeud().dessiner(g2d, compteur * 40, compteur * 40);
 					++compteur;
 				}
-
-				repaint();
 			}
 		}
 	}
@@ -361,37 +367,31 @@ public class ApplicationSwing extends JFrame {
 		JMenu menu = new JMenu(ApplicationSupport.getResource(ORDRE_TITRE));
 		menu.setMnemonic(ORDRE_RACC);
 		
-		ButtonGroup groupeOrdre = new ButtonGroup();
+		groupeOrdre = new ButtonGroup();
 		
 		/* Création de JRadtioButtonMenuItem. */
-		JRadioButtonMenuItem ordreNoSeqCst = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreNoSeqDst = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreAireCst = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreAireDst = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreTForme = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreTFormeInv = new JRadioButtonMenuItem();
-		JRadioButtonMenuItem ordreDistance = new JRadioButtonMenuItem();
+		JRadioButtonMenuItem ordreNoSeqCst = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQASC), Ordre.NOSEQASC));
+		JRadioButtonMenuItem ordreNoSeqDst = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQDESC), Ordre.NOSEQDESC));
+		JRadioButtonMenuItem ordreAireCst = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREASC), Ordre.AIREASC));
+		JRadioButtonMenuItem ordreAireDst = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREDESC), Ordre.AIREDESC));
+		JRadioButtonMenuItem ordreTForme = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORME), Ordre.TYPEFORME));
+		JRadioButtonMenuItem ordreTFormeInv = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORMEINV), Ordre.TYPEFORMEINV));
+		JRadioButtonMenuItem ordreDistance = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_DISTANCE), Ordre.DISTANCE));
 		
-		/* Ajout des actions spécifiques à chaque bouton radio. */
-		ordreNoSeqCst.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQASC), Ordre.NOSQEASC));
+		
+		/* Ajout des raccourcis spécifiques à chaque bouton radio. */
 		ordreNoSeqCst.setAccelerator(KeyStroke.getKeyStroke(NOSEQASC_RACC, ORDRE_MASK));
 		ordreNoSeqCst.setMnemonic(NOSEQASC_RACC);
-		ordreNoSeqDst.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_NOSEQDESC), Ordre.NOSEQDESC));
 		ordreNoSeqDst.setAccelerator(KeyStroke.getKeyStroke(NOSEQDESC_RACC, ORDRE_MASK));
 		ordreNoSeqDst.setMnemonic(NOSEQDESC_RACC);
-		ordreAireCst.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREASC), Ordre.AIREASC));
 		ordreAireCst.setAccelerator(KeyStroke.getKeyStroke(AIREASC_RACC, ORDRE_MASK));
 		ordreAireCst.setMnemonic(AIREASC_RACC);
-		ordreAireDst.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_AIREDESC), Ordre.AIREDESC));
 		ordreAireDst.setAccelerator(KeyStroke.getKeyStroke(AIREDESC_RACC, ORDRE_MASK));
 		ordreAireDst.setMnemonic(AIREDESC_RACC);
-		ordreTForme.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORME), Ordre.TYPEFORME));
 		ordreTForme.setAccelerator(KeyStroke.getKeyStroke(TYPEFORME_RACC, ORDRE_MASK));
 		ordreTForme.setMnemonic(TYPEFORME_RACC);
-		ordreTFormeInv.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORMEINV), Ordre.TYPEFORMEINV));
 		ordreTFormeInv.setAccelerator(KeyStroke.getKeyStroke(TYPEFORMEINV_RACC, ORDRE_MASK));
 		ordreTFormeInv.setMnemonic(TYPEFORMEINV_RACC);
-		ordreDistance.setAction(new OrdreAction(ApplicationSupport.getResource(ORDRE_DISTANCE), Ordre.DISTANCE));
 		ordreDistance.setAccelerator(KeyStroke.getKeyStroke(DISTANCE_RACC, ORDRE_MASK));
 		ordreDistance.setMnemonic(DISTANCE_RACC);
 
