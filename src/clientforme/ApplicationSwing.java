@@ -209,10 +209,11 @@ public class ApplicationSwing extends JFrame {
 				
 				switch(ordre){
 					case NOSEQASC:
-						
+						gestionForme.tri(new CompareNoSequence(true));
 						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case NOSEQDESC:
+						gestionForme.tri(new CompareNoSequence(false));
 						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case AIREASC:
@@ -224,12 +225,15 @@ public class ApplicationSwing extends JFrame {
 						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case TYPEFORME:
+						gestionForme.tri(new CompareForme(true));
 						JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case TYPEFORMEINV:
+						gestionForme.tri(new CompareForme(false));
 						JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case DISTANCE:
+						gestionForme.tri(new CompareDistance(true));
 						JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					default:

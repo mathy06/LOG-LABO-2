@@ -39,8 +39,8 @@ public class Noeud {
 	
 	public Noeud clone(){
 		Noeud clone = new Noeud(forme);
-		clone.setPrecedant(this.getPrecedant());
-		clone.setSuivant(this.getSuivant());
+		clone.setPrecedant(nPrecedant);
+		clone.setSuivant(nSuivant);
 		return clone;
 		
 	}

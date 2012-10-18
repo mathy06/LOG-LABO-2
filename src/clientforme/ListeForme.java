@@ -34,7 +34,6 @@ public class ListeForme {
 	private Noeud nQueue = new Noeud(null); //Dernier noeud de la liste
 	private int maxForme; //Nombre de noeuds maximum dans la liste
 	private int tailleListe; //Taille actuelle de la liste
-	private Noeud courant; //Définition du noeud actuel
 	private ListeForme listeTrier;
 
 	public ListeForme getListeTrier(){
@@ -66,7 +65,7 @@ public class ListeForme {
 	{
 		tailleListe = 0;
 		maxForme = nbForme;
-		courant = nSommet;
+		nQueue = nSommet;
 	}
 	
 	public ListeForme clone(){
@@ -88,13 +87,13 @@ public class ListeForme {
 		//Si la liste n'est pas pleine
 		if(tailleListe<maxForme){
 			if(estVide()){
-				nSommet = courant = new Noeud(forme);
+				nSommet = nQueue = new Noeud(forme);
 			}else{	
 				Noeud temporaire = new Noeud(forme);
-				courant.setSuivant(temporaire);
-				temporaire.setPrecedant(courant);
+				nQueue.setSuivant(temporaire);
+				temporaire.setPrecedant(nQueue);
 				
-				courant = temporaire;
+				nQueue = temporaire;
 			}
 			tailleListe++;
 		}else{
@@ -182,8 +181,8 @@ public class ListeForme {
 			else{
 				while(iterateurTri.possedeSuivant() && !noeudTrier){
 					Noeud aComparer = iterateurTri.suivant();
-					if(comp.compare(aInserer.getNoeud(),aComparer.getNoeud()) > 0){
-						listeTrie.inserer(aInserer.clone(),aComparer); 
+					if(comp.compare(aInserer.getNoeud(),aComparer.getNoeud()) < 0){
+						listeTrie.inserer(new Noeud(aInserer.getNoeud()),aComparer); 
 						noeudTrier = true;
 					}
 					
@@ -200,9 +199,12 @@ public class ListeForme {
 	
 	private void inserer(Noeud premier,Noeud deuxieme){
 		
+		if(deuxieme.getPrecedant()!=null)deuxieme.getPrecedant().setSuivant(premier);
 		premier.setPrecedant(deuxieme.getPrecedant());
 		premier.setSuivant(deuxieme);
 		deuxieme.setPrecedant(premier);
+		if(deuxieme == this.nSommet)
+			this.setSommet(premier);
 		++tailleListe;
 		
 	}
