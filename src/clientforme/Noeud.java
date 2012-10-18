@@ -37,6 +37,14 @@ public class Noeud {
 		forme = _forme;		
 	}
 	
+	public Noeud clone(){
+		Noeud clone = new Noeud(forme);
+		clone.setPrecedant(this.getPrecedant());
+		clone.setSuivant(this.getSuivant());
+		return clone;
+		
+	}
+	
 	public AbstractForme getNoeud(){
 		return forme;
 	}

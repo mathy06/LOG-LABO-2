@@ -41,6 +41,9 @@ public class GestionForme {
 	public ListeForme getListeForme(){
 		return listeForme;
 	}
+	public ListeForme getListeFormeTrier(){
+		return listeForme.getListeTrier()==null ? listeForme : listeForme.getListeTrier();
+	}
 	
 	/**
 	 * @return nombre de place prise dans la liste

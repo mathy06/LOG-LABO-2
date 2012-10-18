@@ -342,7 +342,7 @@ public class ApplicationSwing extends JFrame {
 					RenderingHints.VALUE_ANTIALIAS_ON);
 
 			if (gestionForme != null){
-				ListeForme listeFormes = gestionForme.getListeForme();
+				ListeForme listeFormes = gestionForme.getListeFormeTrier();
 				ListeIterateur iterateur = new ListeIterateur(listeFormes);
 				int compteur = 0;
 				while(iterateur.possedeSuivant()){

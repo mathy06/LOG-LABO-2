@@ -35,7 +35,12 @@ public class ListeForme {
 	private int maxForme; //Nombre de noeuds maximum dans la liste
 	private int tailleListe; //Taille actuelle de la liste
 	private Noeud courant; //Définition du noeud actuel
+	private ListeForme listeTrier;
 
+	public ListeForme getListeTrier(){
+		return listeTrier;
+	}
+	
 	public Noeud getSommet() {
 		return nSommet;
 	}
@@ -64,6 +69,13 @@ public class ListeForme {
 		courant = nSommet;
 	}
 	
+	public ListeForme clone(){
+		ListeForme lstf = new ListeForme(maxForme);
+		lstf.nQueue = nQueue;
+		lstf.nSommet = nSommet;
+		lstf.tailleListe = tailleListe;
+		return lstf;
+	}
 	
 	/**	 
 	 * Méthode servant à ajouter un noeud (forme)
@@ -154,38 +166,46 @@ public class ListeForme {
 	 * @param comparateur
 	 */
 	public void tri(Comparator<AbstractForme> comp){
+		ListeForme listeTrie = new ListeForme(maxForme);
+		ListeIterateur iterateur = new ListeIterateur(this);
+		boolean noeudTrier;
 		
-		Noeud courant = nSommet;
-		Noeud temp;
-		ListeIterateur iterateur = new ListeIterateur(this); 
 		while(iterateur.possedeSuivant()){
-			temp = iterateur.suivant();
-			if(comp.compare(courant.getNoeud(),temp.getNoeud()) > 0){
-						
-				/*
-				 * TODO: Trouver comment bien définir l'élément courant sans
-				 * 		 créer de problème.
-				 */
-				
-				/*
-				 * Avec ce code, le sommet semble perdre le noeud suivant et
-				 * il devient impossible de parcourir la liste pour l'afficher
-				 */
-				
-				
-				temp.setPrecedant(courant.getPrecedant());
-				courant.setSuivant(temp.getSuivant());
-				temp.setSuivant(courant);
-				courant.setPrecedant(temp);
-				
-				
-				courant = temp;		
-				
-			}else{
-				//courant = temp;
+			noeudTrier = false;
+			Noeud aInserer = iterateur.suivant();
+			ListeIterateur iterateurTri = new ListeIterateur(listeTrie);
+			if(listeTrie.estVide()){
+				try{
+					listeTrie.ajouterNoeud(aInserer.getNoeud());
+				}catch(Exception ex){}
+			}
+			else{
+				while(iterateurTri.possedeSuivant() && !noeudTrier){
+					Noeud aComparer = iterateurTri.suivant();
+					if(comp.compare(aInserer.getNoeud(),aComparer.getNoeud()) > 0){
+						listeTrie.inserer(aInserer.clone(),aComparer); 
+						noeudTrier = true;
+					}
+					
+				}
+				if(!noeudTrier){
+					try{
+						listeTrie.ajouterNoeud(aInserer.getNoeud());
+					}catch(Exception ex){}
+				}
 			}
 		}
+		listeTrier = listeTrie;
+	}
+	
+	private void inserer(Noeud premier,Noeud deuxieme){
+		
+		premier.setPrecedant(deuxieme.getPrecedant());
+		premier.setSuivant(deuxieme);
+		deuxieme.setPrecedant(premier);
+		++tailleListe;
 		
 	}
+	
 	
 }

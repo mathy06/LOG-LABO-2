@@ -7,20 +7,30 @@ public class ListeIterateur implements Iterateur {
 	
 	public ListeIterateur(ListeForme liste){
 		listeforme = liste;
-		courant = listeforme.getSommet();
 	}
 	
 	@Override
 	public boolean possedePrecedant() {
-		
-		return courant.possedePrecedant();
+		boolean reponse = false;
+		if(courant == null){
+			if(!listeforme.estVide())reponse = true;
+		}
+		else
+			reponse = courant.possedePrecedant();
+		return reponse;
 		
 	}
 
 	@Override
 	public boolean possedeSuivant() {
-
-		return courant.possedeSuivant();
+		boolean reponse = false;
+		if(courant == null){
+			if(!listeforme.estVide())reponse = true;
+		}
+		else
+			reponse = courant.possedeSuivant();
+		
+		return reponse;
 	
 	}
 
@@ -30,16 +40,14 @@ public class ListeIterateur implements Iterateur {
 		if(courant == null){
 			courant = listeforme.getQueue();
 		}
-		
-		if (courant.possedePrecedant()){
+		else if (courant.possedePrecedant()){
 					
 			courant = courant.getPrecedant();
-			
-			return courant;
-			
+				
 		}else{
 			return null;
 		}
+		return courant;
 	}
 
 	@Override
@@ -48,16 +56,13 @@ public class ListeIterateur implements Iterateur {
 		if(courant == null){
 			courant = listeforme.getSommet();
 		}
-		
-		if (courant.possedeSuivant()){
-
+		else if (courant.possedeSuivant()){
 			courant = courant.getSuivant();
-		
-			return courant;
 			
 		}else{
 			return null;
 		}
+		return courant;
 		
 	}
 
