@@ -113,6 +113,22 @@ public class Ovale extends AbstractForme {
 	}
 	
 	/**
+	 * Retourne la hauteur
+	 * @return hauteur
+	 */
+	public double getHauteur(){
+		return hauteur;
+	}
+	
+	/**
+	 * Retourne la largeur
+	 * @return largeur
+	 */
+	public double getLargeur(){
+		return largeur;
+	}
+	
+	/**
 	 * Calculer l'aire d'un ovale
 	 * PI*rayon1*rayon2
 	 */

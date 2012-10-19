@@ -32,6 +32,8 @@ public class Ligne extends AbstractForme {
 
 	private int pointX2;
 	private int pointY2;
+	private int hauteur;
+	private int largeur;
 	
 	/**
 	 * Contructeur par défaut.
@@ -56,6 +58,9 @@ public class Ligne extends AbstractForme {
 		/* On veut que les lignes soient toujours de en haut à gauche vers en bas à droite. */
 		pointX2 = (coordX2 < coordX1 ? coordX1 + coordX2 : coordX2);
 		pointY2 = (coordY2 < coordY1 ? coordY1 + coordY2 : coordY2);
+		
+		largeur = Math.abs(pointX2 - super.getX1());
+		hauteur = Math.abs(pointY2 - super.getY1());
 		
 		calculerDistanceMax();
 	}
@@ -98,6 +103,22 @@ public class Ligne extends AbstractForme {
 	 */
 	public double getAire(){
 		return 0;
+	}
+	
+	/**
+	 * Retourne la hauteur
+	 * @return hauteur
+	 */
+	public double getHauteur(){
+		return hauteur;
+	}
+	
+	/**
+	 * Retourne la largeur
+	 * @return largeur
+	 */
+	public double getLargeur(){
+		return largeur;
 	}
 	
 	public void dessiner(Graphics2D g2d, int coordX, int coordY){

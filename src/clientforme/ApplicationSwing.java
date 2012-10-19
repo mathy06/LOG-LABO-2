@@ -151,6 +151,11 @@ public class ApplicationSwing extends JFrame {
 	private static final char TYPEFORME_RACC = KeyEvent.VK_T;
 	private static final char TYPEFORMEINV_RACC = KeyEvent.VK_F;
 	private static final char DISTANCE_RACC = KeyEvent.VK_D;
+	private static final char ORIGINAL_RACC = KeyEvent.VK_G;
+	private static final char HAUTEURASC_RACC = KeyEvent.VK_H;
+	private static final char HAUTEURDESC_RACC = KeyEvent.VK_C;
+	private static final char LARGEURASC_RACC = KeyEvent.VK_L;
+	private static final char LARGEURDESC_RACC = KeyEvent.VK_Z;
 	private static final int QUITTER_MASK = ActionEvent.CTRL_MASK;
 	private static final char QUITTER_RACC = KeyEvent.VK_Q;
 	private static final char AIDE_RACC = KeyEvent.VK_A;
@@ -169,6 +174,11 @@ public class ApplicationSwing extends JFrame {
 			ORDRE_TFORME = "app.frame.menus.order.shapetype",
 			ORDRE_TFORMEINV = "app.frame.menus.order.shapetypeinverse",
 			ORDRE_DISTANCE = "app.frame.menus.order.distance",
+			ORDRE_ORIGINAL = "app.frame.menus.order.origine",
+			ORDRE_HAUTEURASC = "app.frame.menus.order.hauteurascending",
+			ORDRE_HAUTEURDESC = "app.frame.menus.order.hauteurdescending",
+			ORDRE_LARGEURASC = "app.frame.menus.order.largeurascending",
+			ORDRE_LARGEURDESC = "app.frame.menus.order.largeurdescending",
 			AIDE_TITRE = "app.frame.menus.help.title",
 			AIDE_PROPOS = "app.frame.menus.help.about";
 
@@ -186,7 +196,10 @@ public class ApplicationSwing extends JFrame {
 	
 	private ButtonGroup groupeOrdre;
 	
-	private enum Ordre {NOSEQASC, NOSEQDESC, AIREASC, AIREDESC, TYPEFORME, TYPEFORMEINV, DISTANCE};
+	private enum Ordre {
+						NOSEQASC, NOSEQDESC, AIREASC, AIREDESC, TYPEFORME, TYPEFORMEINV, DISTANCE, ORIGINAL, 
+						HAUTEURASC, HAUTEURDESC, LARGEURASC, LARGEURDESC
+						};
 	
 	/**
 	 * Traiter les items du menu "Ordre".
@@ -204,44 +217,64 @@ public class ApplicationSwing extends JFrame {
 		public void actionPerformed(ActionEvent arg0){
 			if(!(gestionForme == null)){
 				
-
-				System.out.println("taille de gestionForme:"+gestionForme.getTaille());
-				
-				switch(ordre){
-					case NOSEQASC:
-						gestionForme.tri(new CompareNoSequence(true));
-						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case NOSEQDESC:
-						gestionForme.tri(new CompareNoSequence(false));
-						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par numero de séquence.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case AIREASC:
-						gestionForme.tri(new CompareAire(true));
-						JOptionPane.showMessageDialog(null, "Je trie en ordre croissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case AIREDESC:
-						gestionForme.tri(new CompareAire(false));
-						JOptionPane.showMessageDialog(null, "Je trie en ordre décroissant par l'aire.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case TYPEFORME:
-						gestionForme.tri(new CompareForme(true));
-						JOptionPane.showMessageDialog(null, "Je trie par type de forme.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case TYPEFORMEINV:
-						gestionForme.tri(new CompareForme(false));
-						JOptionPane.showMessageDialog(null, "Je trie par type de forme inverse.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					case DISTANCE:
-						gestionForme.tri(new CompareDistance(true));
-						JOptionPane.showMessageDialog(null, "Je trie par distance.", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
-					default:
-						JOptionPane.showMessageDialog(null, "DEFAULT", "TEST",JOptionPane.INFORMATION_MESSAGE);
-						break;
+				try{
+					switch(ordre){
+						case NOSEQASC:
+							//On trie par numéro de séquence ascendant
+							gestionForme.tri(new CompareNoSequence(true));
+							break;
+						case NOSEQDESC:
+							//On trie par numéro de séquence descendant
+							gestionForme.tri(new CompareNoSequence(false));
+							break;
+						case AIREASC:
+							//On trie par aire ascendant
+							gestionForme.tri(new CompareAire(true));
+							break;
+						case AIREDESC:
+							//On trie par aire descendant
+							gestionForme.tri(new CompareAire(false));
+							break;
+						case TYPEFORME:
+							//On trie par type de forme
+							gestionForme.tri(new CompareForme(true));
+							break;
+						case TYPEFORMEINV:
+							//On trie par type de forme inversé
+							gestionForme.tri(new CompareForme(false));
+							break;
+						case DISTANCE:
+							//On trie par distance
+							gestionForme.tri(new CompareDistance(true));
+							break;
+						case ORIGINAL:
+							//On trie avec l'ordre original
+							gestionForme.setListeOriginal();
+							break;
+						case HAUTEURASC:
+							//On trie par hauteur croissante
+							System.out.println("HAUTEURASC");
+							gestionForme.tri(new CompareHauteur(true));
+							break;
+						case HAUTEURDESC:
+							//On trie par hauteur décroissante
+							gestionForme.tri(new CompareHauteur(false));
+							break;
+						case LARGEURASC:
+							//On trie par largeur croissante
+							gestionForme.tri(new CompareLargeur(true));
+							break;
+						case LARGEURDESC:
+							//On trie par largeur décroisstante
+							gestionForme.tri(new CompareLargeur(false));
+							break;
+					}
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erreur",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			
+			//On rafraichit l'écran
 			repaint();
 			validate();
 		}
@@ -381,6 +414,11 @@ public class ApplicationSwing extends JFrame {
 		JRadioButtonMenuItem ordreTForme = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORME), Ordre.TYPEFORME));
 		JRadioButtonMenuItem ordreTFormeInv = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_TFORMEINV), Ordre.TYPEFORMEINV));
 		JRadioButtonMenuItem ordreDistance = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_DISTANCE), Ordre.DISTANCE));
+		JRadioButtonMenuItem ordreOriginal = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_ORIGINAL), Ordre.ORIGINAL));
+		JRadioButtonMenuItem ordreHauteurAsc = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_HAUTEURASC), Ordre.HAUTEURASC));
+		JRadioButtonMenuItem ordreHauteurDesc = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_HAUTEURDESC), Ordre.HAUTEURDESC));
+		JRadioButtonMenuItem ordreLargeurAsc = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_LARGEURASC), Ordre.LARGEURASC));
+		JRadioButtonMenuItem ordreLargeurDesc = new JRadioButtonMenuItem(new OrdreAction(ApplicationSupport.getResource(ORDRE_LARGEURDESC), Ordre.LARGEURDESC));
 		
 		
 		/* Ajout des raccourcis spécifiques à chaque bouton radio. */
@@ -398,6 +436,16 @@ public class ApplicationSwing extends JFrame {
 		ordreTFormeInv.setMnemonic(TYPEFORMEINV_RACC);
 		ordreDistance.setAccelerator(KeyStroke.getKeyStroke(DISTANCE_RACC, ORDRE_MASK));
 		ordreDistance.setMnemonic(DISTANCE_RACC);
+		ordreOriginal.setAccelerator(KeyStroke.getKeyStroke(ORIGINAL_RACC, ORDRE_MASK));
+		ordreOriginal.setMnemonic(ORIGINAL_RACC);
+		ordreHauteurAsc.setAccelerator(KeyStroke.getKeyStroke(HAUTEURASC_RACC, ORDRE_MASK));
+		ordreHauteurAsc.setMnemonic(HAUTEURASC_RACC);
+		ordreHauteurDesc.setAccelerator(KeyStroke.getKeyStroke(HAUTEURDESC_RACC, ORDRE_MASK));
+		ordreHauteurDesc.setMnemonic(HAUTEURDESC_RACC);
+		ordreLargeurAsc.setAccelerator(KeyStroke.getKeyStroke(LARGEURASC_RACC, ORDRE_MASK));
+		ordreLargeurAsc.setMnemonic(LARGEURASC_RACC);
+		ordreLargeurDesc.setAccelerator(KeyStroke.getKeyStroke(LARGEURDESC_RACC, ORDRE_MASK));
+		ordreLargeurDesc.setMnemonic(LARGEURDESC_RACC);
 
 		/* Ajout des boutons radio au groupe de radio bouton. */
 		groupeOrdre.add(ordreNoSeqCst);
@@ -407,6 +455,11 @@ public class ApplicationSwing extends JFrame {
 		groupeOrdre.add(ordreTForme);
 		groupeOrdre.add(ordreTFormeInv);
 		groupeOrdre.add(ordreDistance);
+		groupeOrdre.add(ordreOriginal);
+		groupeOrdre.add(ordreHauteurAsc);
+		groupeOrdre.add(ordreHauteurDesc);
+		groupeOrdre.add(ordreLargeurAsc);
+		groupeOrdre.add(ordreLargeurDesc);
 		
 		/* Ajout des boutons radio au menu. */
 		menu.add(ordreNoSeqCst);
@@ -416,6 +469,11 @@ public class ApplicationSwing extends JFrame {
 		menu.add(ordreTForme);
 		menu.add(ordreTFormeInv);
 		menu.add(ordreDistance);
+		menu.add(ordreOriginal);
+		menu.add(ordreHauteurAsc);
+		menu.add(ordreHauteurDesc);
+		menu.add(ordreLargeurAsc);
+		menu.add(ordreLargeurDesc);
 
 		return menu;
 	}

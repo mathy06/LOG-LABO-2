@@ -105,8 +105,8 @@ public class ListeForme {
 	 * Méthode servant à vider la liste
 	 *  
 	 */
-	public void viderListe(){
-		
+	public void reinitialiserListeTriee(){
+		listeTrier = null;
 	}
 	
 	
@@ -163,8 +163,9 @@ public class ListeForme {
 	/**
 	 * Méthode servant à trier les Noeuds de la liste de forme.
 	 * @param comparateur
+	 * @throws Exception 
 	 */
-	public void tri(Comparator<AbstractForme> comp){
+	public void tri(Comparator<AbstractForme> comp) throws Exception{
 		ListeForme listeTrie = new ListeForme(maxForme);
 		ListeIterateur iterateur = new ListeIterateur(this);
 		boolean noeudTrier;
@@ -176,7 +177,9 @@ public class ListeForme {
 			if(listeTrie.estVide()){
 				try{
 					listeTrie.ajouterNoeud(aInserer.getNoeud());
-				}catch(Exception ex){}
+				}catch(Exception ex){
+					ex.getMessage(); 
+				}
 			}
 			else{
 				while(iterateurTri.possedeSuivant() && !noeudTrier){
@@ -190,7 +193,9 @@ public class ListeForme {
 				if(!noeudTrier){
 					try{
 						listeTrie.ajouterNoeud(aInserer.getNoeud());
-					}catch(Exception ex){}
+					}catch(Exception ex){
+						throw ex;
+					}
 				}
 			}
 		}

@@ -2,7 +2,7 @@ package clientforme;
 
 import java.util.Comparator;
 
-public class CompareAire implements Comparator<AbstractForme> {
+public class CompareLargeur implements Comparator<AbstractForme> {
 
 	private int ordre;
 	
@@ -10,7 +10,7 @@ public class CompareAire implements Comparator<AbstractForme> {
 	 * Constructeur avec paramètre.
 	 * @param ordreCroissant - Définit si la comparaison est en ordre croissant ou non.
 	 */
-	public CompareAire(boolean ordreCroissant) {
+	public CompareLargeur(boolean ordreCroissant) {
 
 		if (ordreCroissant){
 			ordre = 1;
@@ -22,10 +22,10 @@ public class CompareAire implements Comparator<AbstractForme> {
 	
 	public int compare(AbstractForme forme1, AbstractForme forme2){
 				
-		if (forme1.getAire() > forme2.getAire()){
+		if (forme1.getLargeur() > forme2.getLargeur()){
 			return 1 * ordre;
 		}
-		else if (forme1.getAire() < forme2.getAire()){
+		else if (forme1.getLargeur() < forme2.getLargeur()){
 			return -1 * ordre;
 		}
 		else{

@@ -153,6 +153,18 @@ public abstract class AbstractForme {
 	abstract double getAire();
 	
 	/**
+	 * Retourne la hauteur de la forme
+	 * @return hauteur de la forme
+	 */
+	abstract double getHauteur();
+	
+	/**
+	 * Retourne la largeur de la forme
+	 * @return largeur de la forme
+	 */
+	abstract double getLargeur();
+	
+	/**
 	 * Calculer l'aire d'une forme.
 	 */
 	protected abstract void calculerAire();

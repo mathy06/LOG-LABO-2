@@ -33,7 +33,7 @@ public class GestionForme {
 	private final int MAX_FORME = 10;
 	private ListeForme listeForme = new ListeForme(MAX_FORME);
 	private int taille;
-	
+
 	/**
 	 * Accesseur de la liste de formes.
 	 * @return tableau contenant les formes
@@ -43,6 +43,14 @@ public class GestionForme {
 	}
 	public ListeForme getListeFormeTrier(){
 		return listeForme.getListeTrier()==null ? listeForme : listeForme.getListeTrier();
+	}
+	
+	/**
+	 * Permet de définir la liste originale
+	 * 
+	 */
+	public void setListeOriginal(){
+		listeForme.reinitialiserListeTriee();
 	}
 	
 	/**
@@ -73,7 +81,11 @@ public class GestionForme {
 	}
 	
 	
-	public void tri(Comparator<AbstractForme> comp){
-		listeForme.tri(comp);
+	public void tri(Comparator<AbstractForme> comp) throws Exception{
+		try{
+			listeForme.tri(comp);
+		}catch(Exception ex){
+			throw ex;
+		}
 	}
 }

@@ -112,6 +112,22 @@ public class Rectangle extends AbstractForme{
 	}
 	
 	/**
+	 * Retourne la hauteur du rectangle
+	 * @return hauteur
+	 */
+	public double getHauteur(){
+		return hauteur;
+	}
+	
+	/**
+	 * Retourne la largeur du rectangle
+	 * @return largeur
+	 */
+	public double getLargeur(){
+		return largeur;
+	}
+	
+	/**
 	 * Calcule l'aire d'un rectangle
 	 */
 	protected void calculerAire() {
