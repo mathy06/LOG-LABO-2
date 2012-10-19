@@ -1,28 +1,24 @@
 package clientforme;
 
 import java.util.Comparator;
+
 /******************************************************
 Cours : LOG121
 Session : A2012
 Groupe : 04
 Projet : Laboratoire #1
-Ã‰tudiant(e)(s) : Philippe Charbonneau
+Étudiant(e)(s) : Philippe Charbonneau
 				 Patrice Robitaille
 				 Mathieu Battah
-Code(s) perm. : 
-					
-					
+Code(s) perm. :    CHAP07110906
+                    ROBP2002805 
+                    BATM19038902 
+				
 Professeur : Ghizlane El boussaidi
 Chargé de labo  : Alvine Boaye Belle
 Nom du fichier : GestionForme.java
 Date créé : 21-09-2012
-Date dern. modif. : 21-09-2012
-*******************************************************
-Historique des modifications
-*******************************************************
-21-09-2012 Version 1.0 (Philippe Charbonneau)
-24-09-2012 Version 1.01(Philippe Charbonneau)
-28-09-2012 Version 1.02 (Mathieu Battah)
+Date dern. modif. : 28-09-2012
 *******************************************************/
 
 /**

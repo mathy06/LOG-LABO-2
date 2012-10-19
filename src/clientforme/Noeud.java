@@ -7,14 +7,15 @@ Projet : Laboratoire #1
 Étudiant(e)(s) : Philippe Charbonneau
 				 Patrice Robitaille
 				 Mathieu Battah
-Code(s) perm. : 
-				ROBP20028905
+Code(s) perm. :    CHAP07110906
+                    ROBP2002805 
+                    BATM19038902 
 				
 Professeur : Ghizlane El boussaidi
 Chargé de labo  : Alvine Boaye Belle
-Nom du fichier : Communication.java
-Date créé : 09-10-2012
-Date dern. modif. : 09-10-2012
+Nom du fichier : Noeud.java
+Date créé : 18-10-2012
+Date dern. modif. : 18-10-2012
 *******************************************************
 Historique des modifications
 *******************************************************

@@ -7,9 +7,9 @@ package clientforme;
 Étudiant(e)(s) : 	Philippe Charbonneau
 				 	Patrice Robitaille
 				 	Mathieu Battah
- Code(s) perm. :     
-                     
-                     
+ Code(s) perm. :    CHAP07110906
+                    ROBP2002805 
+                    BATM19038902 
  Professeur :        Groucho Marx
  Date créée :        2002-05-28
  Date dern. modif. : 2012-10-11

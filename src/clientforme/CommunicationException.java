@@ -7,8 +7,9 @@ Projet : Laboratoire #1
 Étudiant(e)(s) : Philippe Charbonneau
 				 Patrice Robitaille
 				 Mathieu Battah
-Code(s) perm. : 
-				
+Code(s) perm. :    CHAP07110906
+                    ROBP2002805 
+                    BATM19038902 		
 				
 Professeur : Ghizlane El boussaidi
 Chargé de labo  : Alvine Boaye Belle
