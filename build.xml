@@ -4,12 +4,12 @@
              To include a user specific buildfile here, simply create one in the same
              directory with the processing instruction <?eclipse.ant.import?>
              as the first entry and export the buildfile again. -->
-<project basedir="." name="LOG-LABO-1">
+<project basedir="." name="LOG-LABO-2">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <path id="LOG-LABO-1.classpath">
+    <path id="LOG-LABO-2.classpath">
        <pathelement location="bin"/>
        <pathelement location="library/ca.etsmtl.log.util.jar"/>
     </path>
@@ -29,14 +29,14 @@
        <echo message="${ant.project.name}: ${ant.file}"/>
        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeantruntime="false">
            <src path="src"/>
-           <classpath refid="LOG-LABO-1.classpath"/>
+           <classpath refid="LOG-LABO-2.classpath"/>
        </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target name="jar">
        <jar destfile="ClientForme.jar" basedir="bin">
            <manifest>
-               <attribute name="Main-Class" value="ApplicationSwing"/>
+               <attribute name="Main-Class" value="clientforme.ApplicationSwing"/>
            </manifest>
 	   <zipfileset excludes="META-INF/*.SF" src="library/ca.etsmtl.log.util.jar"/>
        </jar>

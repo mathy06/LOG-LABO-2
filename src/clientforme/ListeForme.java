@@ -179,7 +179,7 @@ public class ListeForme {
 				try{
 					listeTrie.ajouterNoeud(aInserer.getNoeud());
 				}catch(Exception ex){
-					ex.getMessage(); 
+					throw ex; 
 				}
 			}
 			else{
